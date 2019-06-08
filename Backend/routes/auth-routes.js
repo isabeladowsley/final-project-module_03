@@ -8,16 +8,24 @@ const bcryptSalt = 10;
 router.post('/signup', (req, res, next) => {
 	const { name, street, city, country, zipcode, geolocation, username, originalPassword } = req.body;
 	console.log(req.body);
-	if (username == '' || originalPassword.match(/[0-9]/) === null) {
+	if (
+		name == '' ||
+		street == '' ||
+		city == '' ||
+		country == '' ||
+		zipcode == '' ||
+		username == '' ||
+		originalPassword.match(/[0-9]/) === null
+	) {
 		// send error JSON if any of the fields is empty or password doesn't contain a number
-		res.status(401).json({ message: 'All fields need to be filled and password must contain a number.' });
+		res.status(500).json({ message: 'All fields need to be filled and password must contain a number.' });
 		return;
 	}
 
 	User.findOne({ username })
 		.then((foundUser) => {
 			if (foundUser !== null) {
-				res.status(401).json({ message: 'A user with the same user name is already registered!' });
+				res.status(401).json({ message: 'A user with the same username is already registered!' });
 				return;
 			}
 

@@ -14,9 +14,9 @@ class Signup extends Component {
 			zipcode: '',
 			geolocation: [],
 			username: '',
-			password: ''
+			password: '',
+			error: ''
 		};
-		this.service = new AuthService();
 	}
 
 	authService = new AuthService();
@@ -33,8 +33,7 @@ class Signup extends Component {
 	changeHandler = (e) => {
 		const { name, value } = e.target;
 		this.setState({
-			[name]: value,
-			error: false
+			[name]: value
 		});
 	};
 
@@ -54,22 +53,25 @@ class Signup extends Component {
 		this.authService
 			.signup(name, street, city, country, zipcode, geolocation, username, password)
 			.then((response) => {
-				console.log(response);
-				console.log(this.props.history);
-				this.props.history.push('/login');
+				// if (response.error) {
+				// 	throw new Error(response.error);
+				// }
+
+				console.log('response received', response);
+				//console.log(this.props.history);
+				//this.props.history.push('/login');
 			})
-			.catch((err) => {
+			.catch((error) => {
+				// alert(error);
+
 				this.setState({
-					error: true
+					error: error.response.data.message
 				});
-				console.log(err);
+				console.log('error caught', error.response.data);
 			});
 	};
 
 	render() {
-		if (this.state.error) {
-			return <p>{}</p>;
-		}
 		return (
 			<div>
 				<form onSubmit={(e) => this.handleSubmit(e)}>
@@ -137,6 +139,7 @@ class Signup extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<input type="submit" value="signup" />
+						{this.state.error ? <p>{this.state.error}</p> : ''}
 					</div>
 				</form>
 			</div>

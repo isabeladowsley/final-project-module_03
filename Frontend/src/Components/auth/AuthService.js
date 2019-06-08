@@ -18,7 +18,13 @@ class AuthService {
 				username: username,
 				originalPassword: password
 			})
-			.then((response) => response.data);
+			.then((response) => {
+				console.log('response in authservice', response);
+				if (response.error) {
+					throw response.error;
+				}
+				return response.data;
+			});
 	};
 
 	login = (username, password) => {
