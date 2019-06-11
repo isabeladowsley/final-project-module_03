@@ -12,7 +12,7 @@ const path = require('path');
 const session = require('express-session');
 
 // import passport docs from config folder
-const passportSetup = require('./config/passport/passport-setup');
+const passportSetup = require('./configs/passport/passport-setup');
 
 // add CORS to handle cross-origin communication between your two apps:
 const cors = require('cors');
@@ -87,5 +87,7 @@ const index = require('./routes/index');
 app.use('/', index);
 
 app.use('/api', require('./routes/auth-routes.js'));
+
+app.use('/api', require('./routes/file-upload-routes.js'));
 
 module.exports = app;

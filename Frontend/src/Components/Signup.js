@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // import fromAddress from '../javascripts/geocode';
 import AuthService from './auth/AuthService';
-// import { Redirect } from 'react-router-dom';
+
+import service from '../service';
 
 class Signup extends Component {
 	constructor(props) {
@@ -15,6 +16,7 @@ class Signup extends Component {
 			geolocation: [],
 			username: '',
 			password: '',
+			imageUrl: '',
 			error: ''
 		};
 	}
@@ -53,21 +55,32 @@ class Signup extends Component {
 		this.authService
 			.signup(name, street, city, country, zipcode, geolocation, username, password)
 			.then((response) => {
-				// if (response.error) {
-				// 	throw new Error(response.error);
-				// }
-
 				console.log('response received', response);
-				//console.log(this.props.history);
-				//this.props.history.push('/login');
+				this.props.history.push('/login');
 			})
 			.catch((error) => {
-				// alert(error);
-
 				this.setState({
 					error: error.response.data.message
 				});
 				console.log('error caught', error.response.data);
+			});
+	};
+
+	handleFileUpload = (e) => {
+		console.log('The file to be uploaded is: ', e.target.files[0]);
+
+		const uploadData = new FormData();
+		uploadData.append('imageUrl', e.target.files[0]);
+
+		service
+			.handleUpload(uploadData)
+			.then((response) => {
+				// console.log('response is: ', response);
+				// after the console.log we can see that response carries 'secure_url' which we can use to update the state
+				this.setState({ imageUrl: response.secure_url });
+			})
+			.catch((err) => {
+				console.log('Error while uploading the file: ', err);
 			});
 	};
 
@@ -85,7 +98,7 @@ class Signup extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<label htmlFor="name">Street and House Number</label>
+						<label htmlFor="street">Street and House Number</label>
 						<input
 							type="text"
 							className="form-control"
@@ -94,7 +107,7 @@ class Signup extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<label htmlFor="name">City</label>
+						<label htmlFor="city">City</label>
 						<input
 							type="text"
 							className="form-control"
@@ -103,7 +116,7 @@ class Signup extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<label htmlFor="name">Country</label>
+						<label htmlFor="country">Country</label>
 						<input
 							type="text"
 							className="form-control"
@@ -112,7 +125,7 @@ class Signup extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<label htmlFor="name">Zip Code</label>
+						<label htmlFor="zip-code">Zip Code</label>
 						<input
 							type="text"
 							className="form-control"
@@ -122,7 +135,7 @@ class Signup extends Component {
 						/>
 						<br />
 						<br />
-						<label htmlFor="name">User Name</label>
+						<label htmlFor="username">User Name</label>
 						<input
 							type="text"
 							className="form-control"
@@ -130,7 +143,7 @@ class Signup extends Component {
 							aria-describedby="username"
 							onChange={(e) => this.changeHandler(e)}
 						/>
-						<label htmlFor="name">Password</label>
+						<label htmlFor="password">Password</label>
 						<input
 							type="string"
 							className="form-control"
@@ -138,7 +151,10 @@ class Signup extends Component {
 							aria-describedby="password"
 							onChange={(e) => this.changeHandler(e)}
 						/>
-						<input type="submit" value="signup" />
+						<label htmlFor="picture">Your picture</label>
+						<input type="file" onChange={(e) => this.handleFileUpload(e)} />
+
+						<input type="submit" value="Sign up" />
 						{this.state.error ? <p>{this.state.error}</p> : ''}
 					</div>
 				</form>

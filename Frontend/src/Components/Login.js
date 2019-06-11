@@ -22,11 +22,7 @@ export default class Login extends Component {
 		const username = this.state.username;
 		const password = this.state.password;
 
-		this.service.login(username, password).then((response) => {
-			//this.setState({ login: true });
-			console.log('setting user');
-			this.props.setUser(response);
-		});
+		this.service.login(username, password).then((response) => this.props.setUser(response));
 	};
 
 	render() {
