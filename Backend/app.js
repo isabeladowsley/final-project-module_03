@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const favicon = require('serve-favicon');
-const hbs = require('hbs');
+// const hbs = require('hbs');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
@@ -18,7 +18,6 @@ const passportSetup = require('./configs/passport/passport-setup');
 const cors = require('cors');
 
 mongoose
-	// .connect('mongodb://localhost/phones-backend', {useNewUrlParser: true})
 	.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 	.then((x) => {
 		console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
@@ -89,5 +88,7 @@ app.use('/', index);
 app.use('/api', require('./routes/auth-routes.js'));
 
 app.use('/api', require('./routes/file-upload-routes.js'));
+
+app.use('/api/new-project', require('./routes/project-routes.js'));
 
 module.exports = app;

@@ -16,9 +16,4 @@ router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
 	res.json({ secure_url: req.file.secure_url });
 });
 
-router.post('/linkImage', (req, res, next) => {
-	//1. extract values from body: userID & imageURL
-	//2. find userDoc in DB for specific userID
-	//3. update imageUrl property for that userDocument
-});
 module.exports = router;

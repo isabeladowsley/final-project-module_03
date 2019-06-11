@@ -43,17 +43,10 @@ class Signup extends Component {
 		e.preventDefault();
 		// this.geocode();
 
-		const name = this.state.name;
-		const street = this.state.street;
-		const city = this.state.city;
-		const country = this.state.country;
-		const zipcode = this.state.zipcode;
-		const geolocation = this.state.geolocation;
-		const username = this.state.username;
-		const password = this.state.password;
+		const { name, street, city, country, zipcode, username, password, imageUrl } = this.state;
 
 		this.authService
-			.signup(name, street, city, country, zipcode, geolocation, username, password)
+			.signup(name, street, city, country, zipcode, username, password, imageUrl)
 			.then((response) => {
 				console.log('response received', response);
 				this.props.history.push('/login');
@@ -75,7 +68,7 @@ class Signup extends Component {
 		service
 			.handleUpload(uploadData)
 			.then((response) => {
-				// console.log('response is: ', response);
+				console.log('response is: ', response);
 				// after the console.log we can see that response carries 'secure_url' which we can use to update the state
 				this.setState({ imageUrl: response.secure_url });
 			})

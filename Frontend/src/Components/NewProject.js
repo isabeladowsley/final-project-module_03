@@ -1,6 +1,49 @@
 import React, { Component } from 'react';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 class NewProject extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			name: '',
+			address: '',
+			city: '',
+			country: '',
+			description: ''
+		};
+		this.changeHandler = this.changeHandler.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	changeHandler = (e) => {
+		const { name, value } = e.target;
+		this.setState({
+			[name]: value
+		});
+	};
+
+	handleSubmit = (e) => {
+		e.preventDefault();
+
+		const { name, address, city, country, description } = this.state;
+		axios
+			.post('http://localhost:5000/api/new-project', { name, address, city, country, description })
+			.then(() => {
+				this.setState({
+					name: '',
+					address: '',
+					city: '',
+					country: '',
+					description: ''
+				});
+
+				Swal.fire('Your project was submitted!');
+				this.props.history.push('/my-page');
+			})
+			.catch((error) => console.log(error));
+	};
+
 	render() {
 		return (
 			<div>
@@ -19,8 +62,8 @@ class NewProject extends Component {
 						<input
 							type="text"
 							className="form-control"
-							name="street"
-							aria-describedby="street"
+							name="address"
+							aria-describedby="address"
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
@@ -45,7 +88,7 @@ class NewProject extends Component {
 						<label htmlFor="description">Tell us more about it</label>
 						<textarea
 							className="form-control"
-							id="exampleFormControlTextarea1"
+							name="description"
 							rows="5"
 							onChange={(e) => this.changeHandler(e)}
 						/>

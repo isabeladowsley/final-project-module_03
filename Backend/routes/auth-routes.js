@@ -6,8 +6,7 @@ const bcrypt = require('bcryptjs');
 const bcryptSalt = 10;
 
 router.post('/signup', (req, res, next) => {
-	const { name, street, city, country, zipcode, geolocation, username, originalPassword } = req.body;
-	console.log(req.body);
+	const { name, street, city, country, zipcode, username, originalPassword, imageUrl } = req.body;
 	if (
 		name == '' ||
 		street == '' ||
@@ -32,9 +31,10 @@ router.post('/signup', (req, res, next) => {
 			// encrypt the submitted password before saving
 			const salt = bcrypt.genSaltSync(bcryptSalt);
 			const encryptedPassword = bcrypt.hashSync(originalPassword, salt);
-
-			User.create({ name, street, city, country, zipcode, geolocation, username, encryptedPassword })
+			console.log('imgurl', imageUrl);
+			User.create({ name, street, city, country, zipcode, username, encryptedPassword, imageUrl })
 				.then((userDoc) => {
+					console.log(userDoc);
 					// if all good, log in the user automatically
 					// "req.logIn()" is a Passport method that calls "serializeUser()"
 					// (that saves the USER ID in the session)
