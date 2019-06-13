@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AuthService from './auth/AuthService';
+import Mypage from './Mypage.js';
 
 export default class Login extends Component {
 	state = {
@@ -26,6 +27,10 @@ export default class Login extends Component {
 	};
 
 	render() {
+		if (this.state.user) {
+			return <Mypage currentUser={this.state.user} />;
+		}
+
 		return (
 			<div>
 				<form onSubmit={(e) => this.handleSubmit(e)}>

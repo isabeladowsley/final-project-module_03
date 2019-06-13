@@ -130,4 +130,13 @@ router.get('/checkuser', (req, res, next) => {
 	}
 });
 
+router.get('/getUser', (req, res, next) => {
+	console.log(req.user);
+	if (req.isAuthenticated()) {
+		res.status(200).json(req.user);
+		return;
+	}
+	res.status(403).json({ message: 'user not logged in' });
+});
+
 module.exports = router;

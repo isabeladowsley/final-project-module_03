@@ -3,6 +3,14 @@ import NavBar from './Navbar.js';
 import { Link } from 'react-router-dom';
 
 class Mypage extends Component {
+	// constructor(props) {
+	// 	super(props);
+	// }
+
+	// componentDidMount() {
+	// 	this.props.stopRedirect();
+	// }
+
 	render() {
 		return (
 			<div>

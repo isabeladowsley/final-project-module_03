@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 
@@ -19,9 +19,34 @@ class App extends Component {
 		this.setState({ user: user.userDoc });
 	};
 
+	componentDidMount() {
+		fetch('http://localhost:5000/api/getUser', { credentials: 'include' })
+			.then((response) => {
+				console.log(response);
+				if (!response.ok) {
+					this.setState({ user: null });
+					throw new Error({ message: 'user not logged in' });
+				}
+				response.json().then((user) => {
+					// this.setState({ user: user  , redirect : true});
+					this.setState({ user: user });
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
+
+	// stopRedirect = () => {
+	// 	this.setState({
+	// 		redirect: this.state.redirect * -1
+	// 	});
+	// };
+
 	render() {
 		if (this.state.user) {
-			return <Mypage currentUser={this.state.user} />;
+			return <Redirect to="/my-page" />;
+			// return <Mypage currentUser={this.state.user} />
 		}
 		return (
 			<div className="App">
@@ -39,3 +64,5 @@ class App extends Component {
 }
 
 export default App;
+
+//<Mypage currentUser={this.state.user} />;

@@ -10,6 +10,7 @@ const logger = require('morgan');
 const path = require('path');
 
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 // import passport docs from config folder
 const passportSetup = require('./configs/passport/passport-setup');
@@ -73,7 +74,12 @@ app.use(
 		// secret: "some super secret goes here",
 		secret: process.env.SESSION_SECRET,
 		resave: true,
-		saveUninitialized: true
+		saveUninitialized: true,
+		cookie: { maxAge: 60 * 60000 },
+		store: new MongoStore({
+			mongooseConnection: mongoose.connection,
+			ttl: 1 * 60 * 60
+		})
 	})
 );
 
