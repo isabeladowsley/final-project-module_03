@@ -5,9 +5,11 @@ const eventSchema = new Schema({
 	name: String,
 	date: Date,
 	address: String,
+	city: String,
+	country: String,
 	atendees: Number,
 	description: String,
-	created_by: String,
+	author: { type: Schema.Types.ObjectId, ref: 'User' },
 	timestamps: {
 		createdAt: '',
 		updatedAt: ''

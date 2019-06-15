@@ -10,9 +10,6 @@ import Login from './Components/Login.js';
 import Mypage from './Components/Mypage.js';
 import NewProject from './Components/NewProject';
 import NewEvent from './Components/NewEvent';
-// import NavBar from './Components/Navbar';
-// import Logout from './Components/Logout';
-import NavBar from './Components/Navbar';
 import AuthService from './Components/auth/AuthService';
 
 class App extends Component {
@@ -69,7 +66,7 @@ class App extends Component {
 						render={(props) => <Mypage handleLogout={this.handleLogout} currentUser={this.state.user} />}
 					/>
 					<Route path="/new-project" render={(props) => <NewProject currentUser={this.state.user} />} />
-					<Route path="/new-event" component={NewEvent} />
+					<Route path="/new-event" render={(props) => <NewEvent currentUser={this.state.user} />} />
 				</Switch>
 			</div>
 		);

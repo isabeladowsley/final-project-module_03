@@ -9,6 +9,7 @@ const userSchema = new Schema({
 		unique: true
 	},
 	projects: [ { type: Schema.Types.ObjectId, ref: 'Project' } ],
+	events: [ { type: Schema.Types.ObjectId, ref: 'Event' } ],
 	street: String,
 	zipcode: String,
 	city: String,
