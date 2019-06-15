@@ -95,6 +95,6 @@ app.use('/api', require('./routes/auth-routes.js'));
 
 app.use('/api', require('./routes/file-upload-routes.js'));
 
-app.use('/api/new-project', require('./routes/project-routes.js'));
+app.use('/api', require('./routes/project-routes.js'));
 
 module.exports = app;

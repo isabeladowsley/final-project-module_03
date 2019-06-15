@@ -7,7 +7,7 @@ const projectSchema = new Schema({
 	city: String,
 	country: String,
 	description: String,
-	created_by: String,
+	author: { type: Schema.Types.ObjectId, ref: 'User' },
 	timestamps: {
 		createdAt: '',
 		updatedAt: ''

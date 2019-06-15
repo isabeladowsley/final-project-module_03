@@ -31,8 +31,9 @@ router.post('/signup', (req, res, next) => {
 			// encrypt the submitted password before saving
 			const salt = bcrypt.genSaltSync(bcryptSalt);
 			const encryptedPassword = bcrypt.hashSync(originalPassword, salt);
-			console.log('imgurl', imageUrl);
+
 			User.create({ name, street, city, country, zipcode, username, encryptedPassword, imageUrl })
+				// .populate('projects')
 				.then((userDoc) => {
 					console.log(userDoc);
 					// if all good, log in the user automatically

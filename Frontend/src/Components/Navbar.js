@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
+import AuthService from './auth/AuthService';
 
 class NavBar extends Component {
+	// state = {
+	// 	user: [ this.props.currentUser ]
+	// };
+
 	render() {
+		// if (this.state.user == null) {
+		// 	return <Redirect to="/login" />;
+		// }
+
 		return (
 			<div>
+				<pre>{this.state}</pre>
 				<Navbar bg="dark">
 					<ul>
 						<Link to="/profile">Your profile</Link>
@@ -13,7 +23,7 @@ class NavBar extends Component {
 						<Link to="/neighborhood">My neighborhood</Link>
 						<Link to="/profile">My Complaints</Link>
 					</ul>
-					<button>Log Out</button>
+					<button onClick={this.props.handleLogout}>Logout</button>
 				</Navbar>
 			</div>
 		);

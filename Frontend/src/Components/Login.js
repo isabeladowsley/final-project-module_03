@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AuthService from './auth/AuthService';
-import Mypage from './Mypage.js';
 
 export default class Login extends Component {
 	state = {
@@ -23,14 +22,16 @@ export default class Login extends Component {
 		const username = this.state.username;
 		const password = this.state.password;
 
-		this.service.login(username, password).then((response) => this.props.setUser(response));
+		console.log(this.props);
+
+		this.service.login(username, password).then((response) => {
+			this.props.setUser(response, () => {
+				this.props.history.push('/');
+			});
+		});
 	};
 
 	render() {
-		if (this.state.user) {
-			return <Mypage currentUser={this.state.user} />;
-		}
-
 		return (
 			<div>
 				<form onSubmit={(e) => this.handleSubmit(e)}>

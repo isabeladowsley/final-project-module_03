@@ -10,7 +10,8 @@ class NewProject extends Component {
 			address: '',
 			city: '',
 			country: '',
-			description: ''
+			description: '',
+			author: this.props.currentUser
 		};
 		this.changeHandler = this.changeHandler.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,9 +27,9 @@ class NewProject extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { name, address, city, country, description } = this.state;
+		const { name, address, city, country, description, author } = this.state;
 		axios
-			.post('http://localhost:5000/api/new-project', { name, address, city, country, description })
+			.post('http://localhost:5000/api/new-project', { name, address, city, country, description, author })
 			.then(() => {
 				this.setState({
 					name: '',
@@ -39,7 +40,7 @@ class NewProject extends Component {
 				});
 
 				Swal.fire('Your project was submitted!');
-				this.props.history.push('/my-page');
+				this.props.history.push('/');
 			})
 			.catch((error) => console.log(error));
 	};

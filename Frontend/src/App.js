@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import './App.css';
 
@@ -9,14 +10,20 @@ import Login from './Components/Login.js';
 import Mypage from './Components/Mypage.js';
 import NewProject from './Components/NewProject';
 import NewEvent from './Components/NewEvent';
+// import NavBar from './Components/Navbar';
+// import Logout from './Components/Logout';
+import NavBar from './Components/Navbar';
+import AuthService from './Components/auth/AuthService';
 
 class App extends Component {
 	state = {
 		user: null
 	};
 
-	setUser = (user) => {
-		this.setState({ user: user.userDoc });
+	service = new AuthService();
+
+	setUser = (user, cb) => {
+		this.setState({ user: user.userDoc }, cb);
 	};
 
 	componentDidMount() {
@@ -28,7 +35,6 @@ class App extends Component {
 					throw new Error({ message: 'user not logged in' });
 				}
 				response.json().then((user) => {
-					// this.setState({ user: user  , redirect : true});
 					this.setState({ user: user });
 				});
 			})
@@ -37,25 +43,32 @@ class App extends Component {
 			});
 	}
 
-	// stopRedirect = () => {
-	// 	this.setState({
-	// 		redirect: this.state.redirect * -1
-	// 	});
-	// };
+	handleLogout = (e) => {
+		e.preventDefault();
+		this.service.logout();
+		Swal.fire('You are logged out');
+		this.setState({ user: null });
+	};
 
 	render() {
-		if (this.state.user) {
-			return <Redirect to="/my-page" />;
-			// return <Mypage currentUser={this.state.user} />
+		if (this.state.user === null) {
+			return (
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<Route path="/signup" component={Signup} />
+					<Route exact path="/login" render={(props) => <Login setUser={this.setUser} {...props} />} />
+				</Switch>
+			);
 		}
 		return (
 			<div className="App">
 				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route path="/signup" component={Signup} />
-					<Route exact path="/login" render={() => <Login setUser={this.setUser} />} />
-					<Route exact path="/my-page" render={() => <Mypage currentUser={this.state.user} />} />
-					<Route path="/new-project" component={NewProject} />
+					<Route
+						exact
+						path="/"
+						render={(props) => <Mypage handleLogout={this.handleLogout} currentUser={this.state.user} />}
+					/>
+					<Route path="/new-project" render={(props) => <NewProject currentUser={this.state.user} />} />
 					<Route path="/new-event" component={NewEvent} />
 				</Switch>
 			</div>
@@ -64,5 +77,3 @@ class App extends Component {
 }
 
 export default App;
-
-//<Mypage currentUser={this.state.user} />;
