@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const bcryptSalt = 10;
 
 router.post('/signup', (req, res, next) => {
-	const { name, street, city, country, zipcode, username, originalPassword, imageUrl } = req.body;
+	const { name, street, city, country, zipcode, geolocation, username, originalPassword, imageUrl } = req.body;
 	if (
 		name == '' ||
 		street == '' ||
@@ -32,7 +32,7 @@ router.post('/signup', (req, res, next) => {
 			const salt = bcrypt.genSaltSync(bcryptSalt);
 			const encryptedPassword = bcrypt.hashSync(originalPassword, salt);
 
-			User.create({ name, street, city, country, zipcode, username, encryptedPassword, imageUrl })
+			User.create({ name, street, city, country, zipcode, geolocation, username, encryptedPassword, imageUrl })
 				// .populate('projects')
 				.then((userDoc) => {
 					console.log(userDoc);

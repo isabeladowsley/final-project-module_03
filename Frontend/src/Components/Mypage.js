@@ -15,6 +15,7 @@ class Mypage extends Component {
 				<Link to="/new-event">Add an event</Link>
 				<h1>Welcome back, {this.state.user.name}</h1>
 				<img src={this.state.user.imageUrl} alt="user_picture" height="150px" />
+				<div />
 			</div>
 		);
 	}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-// import fromAddress from '../javascripts/geocode';
+import Geocode from '../../node_modules/react-geocode/lib';
 import AuthService from './auth/AuthService';
-
 import service from '../service';
 
 class Signup extends Component {
@@ -13,7 +12,7 @@ class Signup extends Component {
 			city: '',
 			country: '',
 			zipcode: '',
-			geolocation: [],
+			geolocation: '',
 			username: '',
 			password: '',
 			imageUrl: '',
@@ -23,14 +22,21 @@ class Signup extends Component {
 
 	authService = new AuthService();
 
-	// geocode = () => {
-	// 	// const lat = fromAddress(this.state.street);
-	// 	// const lng = fromAddress(this.state.street);
-	// 	const completeGeo = fromAddress(this.state.street);
-	// 	this.setState({
-	// 		geolocation: completeGeo
-	// 	});
-	// };
+	fromAddress = () => {
+		var address = this.state.street;
+		Geocode.fromAddress(address).then(
+			(response) => {
+				const { lat, lng } = response.results[0].geometry.location;
+				console.log(lat, lng);
+				this.setState({
+					geolocation: [ lat, lng ]
+				});
+			},
+			(error) => {
+				console.error(error);
+			}
+		);
+	};
 
 	changeHandler = (e) => {
 		const { name, value } = e.target;
@@ -41,12 +47,12 @@ class Signup extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		// this.geocode();
+		this.fromAddress();
 
-		const { name, street, city, country, zipcode, username, password, imageUrl } = this.state;
+		const { name, street, city, country, zipcode, geolocation, username, password, imageUrl } = this.state;
 
 		this.authService
-			.signup(name, street, city, country, zipcode, username, password, imageUrl)
+			.signup(name, street, city, country, zipcode, geolocation, username, password, imageUrl)
 			.then((response) => {
 				console.log('response received', response);
 				this.props.history.push('/login');
@@ -69,7 +75,6 @@ class Signup extends Component {
 			.handleUpload(uploadData)
 			.then((response) => {
 				console.log('response is: ', response);
-				// after the console.log we can see that response carries 'secure_url' which we can use to update the state
 				this.setState({ imageUrl: response.secure_url });
 			})
 			.catch((err) => {
