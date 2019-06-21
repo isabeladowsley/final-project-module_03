@@ -8,6 +8,7 @@ router.get('/new-project', (req, res, next) => {
 	Project.findById(req.params.projectId)
 		.then((theProject) => {
 			res.json(theProject);
+
 			console.log('The project is ', theProject);
 		})
 		.catch((err) => {
@@ -19,13 +20,20 @@ router.post('/new-project', (req, res, next) => {
 	Project.create({
 		name: req.body.name,
 		address: req.body.address,
-		city: req.body.city,
-		country: req.body.country,
+		geolocation: req.body.geolocation,
 		description: req.body.description,
 		author: req.body.author
 	})
 		.then((response) => {
-			User.findByIdAndUpdate(req.body.author, { $push: { projects: response._id } });
+			// User.findByIdAndUpdate(req.body.author, { $push: { projects: response._id } });
+			User.findByIdAndUpdate(
+				req.body.author,
+				{
+					$push: { projects: response._id }
+				},
+				{ new: true }
+			);
+
 			res.json(response);
 		})
 		.catch((err) => {

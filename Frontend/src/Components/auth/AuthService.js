@@ -6,14 +6,11 @@ class AuthService {
 		withCredentials: true
 	});
 
-	signup = (name, street, city, country, zipcode, geolocation, username, password, imageUrl) => {
+	signup = (name, address, geolocation, username, password, imageUrl) => {
 		return this.service
 			.post('/api/signup', {
 				name: name,
-				street: street,
-				city: city,
-				country: country,
-				zipcode: zipcode,
+				address: address,
 				geolocation: geolocation,
 				username: username,
 				originalPassword: password,

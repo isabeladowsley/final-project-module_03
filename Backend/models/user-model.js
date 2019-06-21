@@ -10,10 +10,7 @@ const userSchema = new Schema({
 	},
 	projects: [ { type: Schema.Types.ObjectId, ref: 'Project' } ],
 	events: [ { type: Schema.Types.ObjectId, ref: 'Event' } ],
-	street: String,
-	zipcode: String,
-	city: String,
-	country: String,
+	address: String,
 	geolocation: [],
 	encryptedPassword: {
 		type: String,

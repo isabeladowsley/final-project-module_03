@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import MapContainer from './MapContainer';
 
 class NewProject extends Component {
 	constructor(props) {
@@ -8,14 +9,23 @@ class NewProject extends Component {
 		this.state = {
 			name: '',
 			address: '',
-			city: '',
-			country: '',
+			geolocation: '',
 			description: '',
 			author: this.props.currentUser
 		};
 		this.changeHandler = this.changeHandler.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.setAddress = this.setAddress.bind(this);
+		this.setGeo = this.setGeo.bind(this);
 	}
+
+	setAddress = (address) => {
+		this.setState({ address: address });
+	};
+
+	setGeo = (geolocation) => {
+		this.setState({ geolocation: geolocation });
+	};
 
 	changeHandler = (e) => {
 		const { name, value } = e.target;
@@ -27,18 +37,16 @@ class NewProject extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { name, address, city, country, description, author } = this.state;
+		const { name, address, geolocation, description, author } = this.state;
 		axios
-			.post('http://localhost:5000/api/new-project', { name, address, city, country, description, author })
+			.post('http://localhost:5000/api/new-project', { name, address, geolocation, description, author })
 			.then(() => {
 				this.setState({
 					name: '',
 					address: '',
-					city: '',
-					country: '',
+					geolocation: '',
 					description: ''
 				});
-
 				Swal.fire('Your project was submitted!');
 				this.props.history.push('/');
 			})
@@ -59,33 +67,6 @@ class NewProject extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<label htmlFor="address">Address</label>
-						<input
-							type="text"
-							className="form-control"
-							name="address"
-							aria-describedby="address"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="city">City</label>
-						<input
-							type="text"
-							className="form-control"
-							name="city"
-							aria-describedby="city"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="country">Country</label>
-						<input
-							type="text"
-							className="form-control"
-							name="country"
-							aria-describedby="country"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
 						<label htmlFor="description">Tell us more about it</label>
 						<textarea
 							className="form-control"
@@ -94,8 +75,8 @@ class NewProject extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-
-						<input type="submit" value="Save!" />
+						<input type="submit" value="Save the project!" />
+						<MapContainer setAddress={this.setAddress} setGeo={this.setGeo} />
 					</div>
 				</form>
 			</div>

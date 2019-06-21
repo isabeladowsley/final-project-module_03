@@ -1,41 +1,34 @@
 import React, { Component } from 'react';
-import Geocode from '../../node_modules/react-geocode/lib';
 import AuthService from './auth/AuthService';
 import service from '../service';
+import MapContainer from './MapContainer.js';
 
 class Signup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: '',
-			street: '',
-			city: '',
-			country: '',
-			zipcode: '',
+			address: '',
 			geolocation: '',
 			username: '',
 			password: '',
 			imageUrl: '',
 			error: ''
 		};
+		this.setAddress = this.setAddress.bind(this);
+		this.setGeo = this.setGeo.bind(this);
 	}
 
 	authService = new AuthService();
 
-	fromAddress = () => {
-		var address = this.state.street;
-		Geocode.fromAddress(address).then(
-			(response) => {
-				const { lat, lng } = response.results[0].geometry.location;
-				console.log(lat, lng);
-				this.setState({
-					geolocation: [ lat, lng ]
-				});
-			},
-			(error) => {
-				console.error(error);
-			}
-		);
+	// Handlers
+
+	setAddress = (address) => {
+		this.setState({ address: address });
+	};
+
+	setGeo = (geolocation) => {
+		this.setState({ geolocation: geolocation });
 	};
 
 	changeHandler = (e) => {
@@ -47,12 +40,11 @@ class Signup extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		this.fromAddress();
 
-		const { name, street, city, country, zipcode, geolocation, username, password, imageUrl } = this.state;
+		const { name, address, geolocation, username, password, imageUrl } = this.state;
 
 		this.authService
-			.signup(name, street, city, country, zipcode, geolocation, username, password, imageUrl)
+			.signup(name, address, geolocation, username, password, imageUrl)
 			.then((response) => {
 				console.log('response received', response);
 				this.props.history.push('/login');
@@ -96,43 +88,6 @@ class Signup extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<label htmlFor="street">Street and House Number</label>
-						<input
-							type="text"
-							className="form-control"
-							name="street"
-							aria-describedby="street"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="city">City</label>
-						<input
-							type="text"
-							className="form-control"
-							name="city"
-							aria-describedby="city"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="country">Country</label>
-						<input
-							type="text"
-							className="form-control"
-							name="country"
-							aria-describedby="country"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="zip-code">Zip Code</label>
-						<input
-							type="text"
-							className="form-control"
-							name="zipcode"
-							aria-describedby="zipcode"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<br />
 						<label htmlFor="username">User Name</label>
 						<input
 							type="text"
@@ -151,9 +106,10 @@ class Signup extends Component {
 						/>
 						<label htmlFor="picture">Your picture</label>
 						<input type="file" onChange={(e) => this.handleFileUpload(e)} />
-
 						<input type="submit" value="Sign up" />
 						{this.state.error ? <p>{this.state.error}</p> : ''}
+						<p>Please, enter your address</p>
+						<MapContainer setAddress={this.setAddress} setGeo={this.setGeo} />
 					</div>
 				</form>
 			</div>
