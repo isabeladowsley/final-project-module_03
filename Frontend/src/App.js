@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import './App.css';
+import './styles/css/main.css';
 
 import Home from './Components/Home.js';
 import Signup from './Components/Signup.js';

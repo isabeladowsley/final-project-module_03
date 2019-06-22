@@ -48,8 +48,8 @@ class LocationSearchInput extends React.Component {
 								const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
 								// inline style for demonstration purpose
 								const style = suggestion.active
-									? { backgroundColor: '#fafafa', cursor: 'pointer' }
-									: { backgroundColor: '#ffffff', cursor: 'pointer' };
+									? { backgroundColor: '#3a4042', cursor: 'pointer' }
+									: { backgroundColor: '#3a4042', cursor: 'pointer' };
 								return (
 									<div
 										{...getSuggestionItemProps(suggestion, {

@@ -37,13 +37,15 @@ export class MapContainer extends Component {
 			<div>
 				<input type="button" value="Save the address" onClick={this.handleSubmit} />
 				<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
+
 				<Map
 					google={this.props.google}
 					zoom={12}
 					style={style}
 					initialCenter={{ lat: 52.370216, lng: 4.895168 }}
-				/>;
-				<Marker name={'Your home'} position={this.state.geolocation} />
+				>
+					<Marker name={'Your home'} position={this.state.geolocation} />
+				</Map>
 			</div>
 		);
 	}

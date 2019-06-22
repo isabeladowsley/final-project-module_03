@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import logo from '../public/images/logo.png';
+import { Button } from 'react-bootstrap';
 
 class Home extends Component {
 	render() {
 		return (
 			<div>
-				<div>
-					<div className="acess1">
-						<Link to="/signup">Sign-up</Link>
-						<Link to="/login">Log-in</Link>
-					</div>
-					<h5> _____ OR ______</h5>
-					<div className="acess2">
-						<Link>Continue with Facebook</Link>
-						<Link>Continue with Instagram</Link>
-					</div>
+				<img className="logo" src={logo} alt="logo" height="500px" />
+				<div className="acess1">
+					<Button className="btn" variant="info" href="/signup">
+						Sign-up
+					</Button>
+					<Button className="btn" variant="info" href="/login">
+						Log-in
+					</Button>
+				</div>
+				<h5> _____ OR ______</h5>
+				<div className="acess2">
+					<Button>Continue with Facebook</Button>
+					<Button>Continue with Instagram</Button>
 				</div>
 			</div>
 		);

@@ -48,7 +48,7 @@ class NewProject extends Component {
 					description: ''
 				});
 				Swal.fire('Your project was submitted!');
-				this.props.history.push('/');
+				// this.props.history.push('/');
 			})
 			.catch((error) => console.log(error));
 	};
