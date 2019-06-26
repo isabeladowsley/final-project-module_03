@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import './styles/css/main.css';
+import './css/main.css';
 
 import Home from './Components/Home.js';
 import Signup from './Components/Signup.js';
@@ -11,6 +11,8 @@ import Mypage from './Components/Mypage.js';
 import NewProject from './Components/NewProject';
 import NewEvent from './Components/NewEvent';
 import AuthService from './Components/auth/AuthService';
+import MyProjects from './Components/MyProjects';
+import Profile from './Components/Profile';
 
 class App extends Component {
 	state = {
@@ -52,7 +54,7 @@ class App extends Component {
 			return (
 				<Switch>
 					<Route exact path="/" component={Home} />
-					<Route path="/signup" component={Signup} />
+					<Route path="/signup" render={(props) => <Signup {...props} />} />
 					<Route exact path="/login" render={(props) => <Login setUser={this.setUser} {...props} />} />
 				</Switch>
 			);
@@ -65,8 +67,19 @@ class App extends Component {
 						path="/"
 						render={(props) => <Mypage handleLogout={this.handleLogout} currentUser={this.state.user} />}
 					/>
-					<Route path="/new-project" render={(props) => <NewProject currentUser={this.state.user} />} />
-					<Route path="/new-event" render={(props) => <NewEvent currentUser={this.state.user} />} />
+					<Route
+						path="/new-project"
+						render={(props) => <NewProject currentUser={this.state.user} {...props} />}
+					/>
+					<Route
+						path="/new-event"
+						render={(props) => <NewEvent currentUser={this.state.user} {...props} />}
+					/>
+					<Route path="/profile" render={(props) => <Profile currentUser={this.state.user} />} />
+					<Route
+						path="/my-projects"
+						render={(props) => <MyProjects currentUser={this.state.user} {...props} />}
+					/>
 				</Switch>
 			</div>
 		);

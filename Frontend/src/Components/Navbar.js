@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 
 class NavBar extends Component {
-	// state = {
-	// 	user: [ this.props.currentUser ]
-	// };
-
 	render() {
-		// if (this.state.user == null) {
-		// 	return <Redirect to="/login" />;
-		// }
-
 		return (
 			<div>
-				<pre>{this.state}</pre>
-				<Navbar bg="dark">
+				<Navbar className="navbar">
 					<ul>
-						<Link to="/profile">Your profile</Link>
-						<Link to="/projects">Your projects</Link>
-						<Link to="/neighborhood">My neighborhood</Link>
-						<Link to="/profile">My Complaints</Link>
+						<a className="btn btn-purple" href="/profile">
+							My profile
+						</a>
+						<a className="btn btn-purple" href="/my-projects">
+							My projects
+						</a>
+						<a className="btn btn-purple" href="/my-events">
+							My events
+						</a>
 					</ul>
-					<button onClick={this.props.handleLogout}>Logout</button>
+					<button className="btn btn-green" onClick={this.props.handleLogout}>
+						Log-out
+					</button>
 				</Navbar>
 			</div>
 		);

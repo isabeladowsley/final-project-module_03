@@ -9,7 +9,7 @@ const eventSchema = new Schema({
 	country: String,
 	atendees: Number,
 	description: String,
-	author: { type: Schema.Types.ObjectId, ref: 'User' },
+	author: { type: Schema.Types.Mixed, ref: 'User' },
 	timestamps: {
 		createdAt: '',
 		updatedAt: ''

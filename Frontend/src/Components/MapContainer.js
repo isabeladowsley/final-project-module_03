@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-import LocationSearchInput from './LocationSearchInput.js';
-import Swal from 'sweetalert2';
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import axios from 'axios';
+
+// import { faHome } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export class MapContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			address: '',
-			geolocation: ''
+			geolocation: '',
+			user: this.props.currentUser,
+			projects: [],
+			showingInfoWindow: false,
+			activeMarker: {},
+			selectedPlace: {}
 		};
 	}
 
@@ -20,12 +27,43 @@ export class MapContainer extends Component {
 		this.setState({ geolocation: geolocation });
 	};
 
-	handleSubmit = (e) => {
-		e.preventDefault();
-		this.props.setAddress(this.state.address);
-		this.props.setGeo(this.state.geolocation);
-		Swal.fire('You address is saved');
+	onMarkerClick = (props, marker, e) =>
+		this.setState({
+			selectedPlace: props,
+			activeMarker: marker,
+			showingInfoWindow: true
+		});
+
+	onMapClicked = (props) => {
+		if (this.state.showingInfoWindow) {
+			this.setState({
+				showingInfoWindow: false,
+				activeMarker: null
+			});
+		}
 	};
+
+	componentDidMount() {
+		fetch('http://localhost:5000/api/allprojects', { credentials: 'include', method: 'GET' })
+			.then((response) => {
+				response.json();
+				console.log('Testing:', response);
+			})
+			.then((data) => this.setState({ projects: data }))
+			.catch(function(error) {
+				console.log(error);
+			});
+	}
+
+	// .then((res) => {
+	// 	this.setState({ projects: res.data });
+	// 	console.log('Hello', res.data);
+	// })
+	// .catch((error) => {
+	// 	console.log(error);
+	// });
+
+	//
 
 	render() {
 		const style = {
@@ -33,18 +71,22 @@ export class MapContainer extends Component {
 			height: '100%'
 		};
 
+		const lat = this.state.user.geolocation.lat;
+		const lng = this.state.user.geolocation.lng;
+
 		return (
 			<div>
-				<input type="button" value="Save the address" onClick={this.handleSubmit} />
-				<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
-
-				<Map
-					google={this.props.google}
-					zoom={12}
-					style={style}
-					initialCenter={{ lat: 52.370216, lng: 4.895168 }}
-				>
-					<Marker name={'Your home'} position={this.state.geolocation} />
+				<Map google={this.props.google} zoom={16} style={style} initialCenter={{ lat: lat, lng: lng }}>
+					<Marker name={'Your place!'} position={this.state.geolocation} onClick={this.onMarkerClick} />
+					<InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
+						<div>
+							<h1 className="infowindow">
+								<i className="fas fa-home" />
+								<div>&nbsp;</div>
+								{this.state.selectedPlace.name}
+							</h1>
+						</div>
+					</InfoWindow>
 				</Map>
 			</div>
 		);
@@ -52,5 +94,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-	apiKey: 'AIzaSyBPkvDH3fjGJdwogfZa6uoBFCucF9s72Ng'
+	apiKey: 'AIzaSyBx-Cm1hZ-LcaBezySvfmu2k5HpQKr1vNo'
 })(MapContainer);

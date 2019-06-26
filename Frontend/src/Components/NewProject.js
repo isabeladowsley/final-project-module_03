@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import MapContainer from './MapContainer';
+import LocationSearchInput from './LocationSearchInput';
+import { Button } from 'react-bootstrap';
+
+// import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 class NewProject extends Component {
 	constructor(props) {
@@ -48,7 +52,7 @@ class NewProject extends Component {
 					description: ''
 				});
 				Swal.fire('Your project was submitted!');
-				// this.props.history.push('/');
+				this.props.history.push('/');
 			})
 			.catch((error) => console.log(error));
 	};
@@ -75,8 +79,20 @@ class NewProject extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<input type="submit" value="Save the project!" />
-						<MapContainer setAddress={this.setAddress} setGeo={this.setGeo} />
+
+						<Button className="btn" variant="info" type="submit">
+							Save the project
+						</Button>
+						<Button className="btn" variant="info" href="/">
+							Go back to your page
+						</Button>
+						<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
+
+						<MapContainer
+							currentUser={this.state.author}
+							setAddress={this.setAddress}
+							setGeo={this.setGeo}
+						/>
 					</div>
 				</form>
 			</div>

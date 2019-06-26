@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import AuthService from './auth/AuthService';
 import service from '../service';
-import MapContainer from './MapContainer.js';
+
+import LocationSearchInput from './LocationSearchInput';
 
 class Signup extends Component {
 	constructor(props) {
@@ -97,6 +98,7 @@ class Signup extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<label htmlFor="password">Password</label>
+						<p>Your password must contain one number</p>
 						<input
 							type="string"
 							className="form-control"
@@ -109,7 +111,7 @@ class Signup extends Component {
 						<input type="submit" value="Sign up" />
 						{this.state.error ? <p>{this.state.error}</p> : ''}
 						<p>Please, enter your address</p>
-						<MapContainer setAddress={this.setAddress} setGeo={this.setGeo} />
+						<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
 					</div>
 				</form>
 			</div>

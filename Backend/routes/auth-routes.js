@@ -25,7 +25,7 @@ router.post('/signup', (req, res, next) => {
 			const encryptedPassword = bcrypt.hashSync(originalPassword, salt);
 
 			User.create({ name, address, geolocation, username, encryptedPassword, imageUrl })
-				.populate('projects')
+				// .populate('projects')
 				.then((userDoc) => {
 					console.log(userDoc);
 					// if all good, log in the user automatically
@@ -102,7 +102,7 @@ router.post('/login', (req, res, next) => {
 
 //////////////// LOGOUT /////////////////////
 
-router.delete('/logout', (req, res, next) => {
+router.post('/logout', (req, res, next) => {
 	// "req.logOut()" is a Passport method that removes the user ID from session
 	req.logOut();
 
@@ -126,10 +126,16 @@ router.get('/checkuser', (req, res, next) => {
 router.get('/getUser', (req, res, next) => {
 	console.log(req.user);
 	if (req.isAuthenticated()) {
-		res.status(200).json(req.user);
-		return;
+		User.findById(req.user.id)
+			.populate('projects')
+			.then((result) => {
+				res.status(200).json(result);
+			})
+			.catch((error) => console.log(error));
+	} else {
+		res.status(403).json({ message: 'user not logged in' });
 	}
-	res.status(403).json({ message: 'user not logged in' });
+	return;
 });
 
 module.exports = router;

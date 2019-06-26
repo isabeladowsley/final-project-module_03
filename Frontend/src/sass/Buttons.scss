@@ -1,0 +1,36 @@
+$purple: #1c1028;
+$green: #53827f;
+
+.btn {
+	margin: 20px;
+	font-family: "Josefin Sans", sans-serif;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+}
+
+.btn:hover {
+	font-size: 16px;
+	color: white;
+	vertical-align: middle;
+}
+
+.btn-purple {
+	width: 180px;
+	height: 45px;
+	color: white;
+	background-color: $purple;
+	outline: none;
+	cursor: pointer;
+	transition: all .4s;
+}
+
+.btn-green {
+	width: 180px;
+	height: 45px;
+	color: white;
+	background-color: $green;
+	outline: none;
+	cursor: pointer;
+	transition: all .4s;
+}

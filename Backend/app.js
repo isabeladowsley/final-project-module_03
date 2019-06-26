@@ -34,8 +34,8 @@ const app = express();
 
 // Middleware Setup
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: '50mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 
 // Express View engine setup
@@ -73,8 +73,8 @@ app.use(
 	session({
 		// secret: "some super secret goes here",
 		secret: process.env.SESSION_SECRET,
-		resave: true,
-		saveUninitialized: true,
+		resave: false,
+		saveUninitialized: false,
 		cookie: { maxAge: 60 * 60000 },
 		store: new MongoStore({
 			mongooseConnection: mongoose.connection,
@@ -98,5 +98,7 @@ app.use('/api', require('./routes/file-upload-routes.js'));
 app.use('/api', require('./routes/project-routes.js'));
 
 app.use('/api', require('./routes/event-routes.js'));
+
+app.use('/api', require('./routes/user-routes.js'));
 
 module.exports = app;
