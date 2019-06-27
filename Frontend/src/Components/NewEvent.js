@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import MapContainer from './MapContainer';
+import LocationSearchInput from './LocationSearchInput';
+import { Button } from 'react-bootstrap';
+
+import TimePicker from 'react-gradient-timepicker';
 
 class NewEvent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: '',
-			date: '',
 			address: '',
-			city: '',
-			country: '',
+			geolocation: '',
 			description: '',
 			author: this.props.currentUser
 		};
 		this.changeHandler = this.changeHandler.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.setAddress = this.setAddress.bind(this);
+		this.setGeo = this.setGeo.bind(this);
 	}
+
+	setAddress = (address) => {
+		this.setState({ address: address });
+	};
+
+	setGeo = (geolocation) => {
+		this.setState({ geolocation: geolocation });
+	};
 
 	changeHandler = (e) => {
 		const { name, value } = e.target;
@@ -28,16 +41,15 @@ class NewEvent extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { name, date, address, city, country, description, author } = this.state;
+		const { name, date, address, geolocation, description, author } = this.state;
 		axios
-			.post('http://localhost:5000/api/new-event', { name, date, address, city, country, description, author })
+			.post('http://localhost:5000/api/new-event', { name, date, address, geolocation, description, author })
 			.then(() => {
 				this.setState({
 					name: '',
 					date: '',
 					address: '',
-					city: '',
-					country: '',
+					geolocation: '',
 					description: ''
 				});
 
@@ -70,30 +82,20 @@ class NewEvent extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<label htmlFor="address">Address</label>
-						<input
-							type="text"
-							className="form-control"
-							name="address"
-							aria-describedby="address"
-							onChange={(e) => this.changeHandler(e)}
+						<TimePicker
+							time="01:00"
+							theme="Bourbon"
+							className="timepicker"
+							placeholder="Start Time"
+							onSet={(val) => {
+								alert('val:' + val.format12);
+							}}
 						/>
-						<br />
-						<label htmlFor="city">City</label>
 						<input
-							type="text"
+							type="time"
 							className="form-control"
-							name="city"
-							aria-describedby="city"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="country">Country</label>
-						<input
-							type="text"
-							className="form-control"
-							name="country"
-							aria-describedby="country"
+							name="date"
+							aria-describedby="date"
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
@@ -106,7 +108,19 @@ class NewEvent extends Component {
 						/>
 						<br />
 
-						<input type="submit" value="Save!" />
+						<Button className="btn" variant="info" type="submit">
+							Save the event
+						</Button>
+						<Button className="btn" variant="info" href="/">
+							Go back to your page
+						</Button>
+						<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
+
+						<MapContainer
+							currentUser={this.state.author}
+							setAddress={this.setAddress}
+							setGeo={this.setGeo}
+						/>
 					</div>
 				</form>
 			</div>

@@ -1,53 +1,68 @@
 import React, { Component } from 'react';
 import NavBar from './Navbar.js';
 
-import EditProfile from './EditProfile';
+import axios from 'axios';
 
 class Profile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user: this.props.currentUser
+			id: this.props.currentUser._id,
+			name: this.props.currentUser.name,
+			address: this.props.currentUser.address,
+			username: this.props.currentUser.username
 		};
+		this.changeHandler = this.changeHandler.bind(this);
 	}
 
-	// componentDidMount(){
-	// 	this.getSingleProject();
-	//   }
+	handleFormSubmit = (event) => {
+		const name = this.state.name;
+		const address = this.state.address;
+		const username = this.state.username;
 
-	//   getSingleUser = () => {
-	// 	const { params } = this.props.match;
-	// 	axios.get(`http://localhost:5000/api/users/${params.id}`)
-	// 	.then( responseFromApi =>{
-	// 	  const theUser = responseFromApi.data;
-	// 	  this.setState(theUser);
-	// 	})
-	// 	.catch((err)=>{
-	// 		console.log(err)
-	// 	})
-	//   }
+		event.preventDefault();
 
-	// renderEditForm = () => {
-	// 	if (!this.state.user.name) {
-	// 		this.getSingleUser();
-	// 	} else {
-	// 		//
-	// 		return <EditProfile theUser={this.state.user} getTheUser={this.getTheUser} {...this.props} />;
-	// 	}
-	// };
+		axios
+			.put(`http://localhost:5000/api/users/${this.state.id}`, { name, address, username })
+			.then(() => {
+				this.props.history.push('/');
+			})
+			.catch((error) => console.log(error));
+	};
 
-	upliftUser = (userUpdated) => {
-		this.setState({ user: userUpdated });
+	changeHandler = (e) => {
+		const { name, value } = e.target;
+		this.setState({
+			[name]: value
+		});
 	};
 
 	render() {
 		return (
 			<div>
 				<NavBar />
-				<EditProfile currentUser={this.state.user} upliftUser={this.upliftUser} {...this.props} />
 				<a className="btn btn-green" href="/">
 					Back to your home page
 				</a>
+				<div>
+					<hr />
+					<h3>Edit your profile</h3>
+					<form onSubmit={this.handleFormSubmit}>
+						<label>Name:</label>
+						<input
+							type="text"
+							name="name"
+							value={this.state.name}
+							onChange={(e) => this.changeHandler(e)}
+						/>
+						<label>Address:</label>
+						<textarea name="address" value={this.state.address} onChange={(e) => this.changeHandler(e)} />
+						<label>Username:</label>
+						<textarea name="username" value={this.state.username} onChange={(e) => this.changeHandler(e)} />
+
+						<input type="submit" value="Submit" />
+					</form>
+				</div>
 			</div>
 		);
 	}

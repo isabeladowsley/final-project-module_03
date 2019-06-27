@@ -9,8 +9,8 @@ const userSchema = new Schema({
 		unique: true
 	},
 	projects: [ { type: Schema.Types.ObjectId, ref: 'Project' } ],
-	events: { type: Schema.Types.Mixed, ref: 'Event' },
-	eventsattending: { type: Schema.Types.Mixed, ref: 'Event' },
+	events: [ { type: Schema.Types.ObjectId, ref: 'Event' } ],
+	// eventsattending: { type: Schema.Types.Mixed, ref: 'Event' },
 	address: String,
 	geolocation: Object,
 	encryptedPassword: {

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const projectSchema = new Schema({
 	name: String,
 	address: String,
-	geolocation: [],
+	geolocation: '',
 	description: String,
 	author: { type: Schema.Types.ObjectId, ref: 'User' },
 	timestamps: {

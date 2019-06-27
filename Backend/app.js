@@ -34,8 +34,8 @@ const app = express();
 
 // Middleware Setup
 app.use(logger('dev'));
-app.use(bodyParser.json({ limit: '50mb', extended: true }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: '100mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 app.use(cookieParser());
 
 // Express View engine setup
@@ -100,5 +100,17 @@ app.use('/api', require('./routes/project-routes.js'));
 app.use('/api', require('./routes/event-routes.js'));
 
 app.use('/api', require('./routes/user-routes.js'));
+
+// FACEBOOK
+
+// app.get('/auth/facebook', passport.authenticate('facebook'));
+
+// app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function(
+// 	req,
+// 	res
+// ) {
+// 	// Successful authentication, redirect home.
+// 	res.redirect('/');
+// });
 
 module.exports = app;

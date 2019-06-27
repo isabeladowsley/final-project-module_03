@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import axios from 'axios';
-
-// import { faHome } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export class MapContainer extends Component {
 	constructor(props) {
@@ -12,10 +8,11 @@ export class MapContainer extends Component {
 			address: '',
 			geolocation: '',
 			user: this.props.currentUser,
-			projects: [],
+			allprojects: [],
 			showingInfoWindow: false,
 			activeMarker: {},
-			selectedPlace: {}
+			selectedPlace: {},
+			url: ''
 		};
 	}
 
@@ -31,7 +28,8 @@ export class MapContainer extends Component {
 		this.setState({
 			selectedPlace: props,
 			activeMarker: marker,
-			showingInfoWindow: true
+			showingInfoWindow: true,
+			url: props.url
 		});
 
 	onMapClicked = (props) => {
@@ -44,26 +42,18 @@ export class MapContainer extends Component {
 	};
 
 	componentDidMount() {
-		fetch('http://localhost:5000/api/allprojects', { credentials: 'include', method: 'GET' })
+		fetch('http://localhost:5000/api/allprojects')
 			.then((response) => {
-				response.json();
-				console.log('Testing:', response);
+				return response.json();
 			})
-			.then((data) => this.setState({ projects: data }))
+			.then((data) => {
+				console.log(data);
+				this.setState({ allprojects: data });
+			})
 			.catch(function(error) {
 				console.log(error);
 			});
 	}
-
-	// .then((res) => {
-	// 	this.setState({ projects: res.data });
-	// 	console.log('Hello', res.data);
-	// })
-	// .catch((error) => {
-	// 	console.log(error);
-	// });
-
-	//
 
 	render() {
 		const style = {
@@ -76,17 +66,27 @@ export class MapContainer extends Component {
 
 		return (
 			<div>
-				<Map google={this.props.google} zoom={16} style={style} initialCenter={{ lat: lat, lng: lng }}>
+				<Map google={this.props.google} zoom={14} style={style} initialCenter={{ lat: lat, lng: lng }}>
 					<Marker name={'Your place!'} position={this.state.geolocation} onClick={this.onMarkerClick} />
 					<InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
 						<div>
-							<h1 className="infowindow">
-								<i className="fas fa-home" />
-								<div>&nbsp;</div>
-								{this.state.selectedPlace.name}
-							</h1>
+							<h1 className="infowindow">{this.state.selectedPlace.name}</h1>
+							<a href={this.state.url}>see more</a>
 						</div>
 					</InfoWindow>
+					{this.state.allprojects.map((project, index) => (
+						<Marker
+							key={index}
+							name={project.name}
+							position={project.geolocation}
+							onClick={this.onMarkerClick}
+							url={`/allprojects/${project._id}`}
+						>
+							{/* <button className="btn btn-purple" href="/allprojects/:{project._id}">
+								Link
+							</button> */}
+						</Marker>
+					))}
 				</Map>
 			</div>
 		);
@@ -94,5 +94,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-	apiKey: 'AIzaSyBx-Cm1hZ-LcaBezySvfmu2k5HpQKr1vNo'
+	apiKey: process.env.REACT_APP_GOOGLEMAPS_API
 })(MapContainer);

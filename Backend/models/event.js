@@ -5,11 +5,9 @@ const eventSchema = new Schema({
 	name: String,
 	date: Date,
 	address: String,
-	city: String,
-	country: String,
-	atendees: Number,
+	geolocation: String,
 	description: String,
-	author: { type: Schema.Types.Mixed, ref: 'User' },
+	author: { type: Schema.Types.ObjectId, ref: 'User' },
 	timestamps: {
 		createdAt: '',
 		updatedAt: ''

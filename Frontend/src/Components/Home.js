@@ -17,7 +17,7 @@ class Home extends Component {
 				</div>
 				<h5> _____ OR ______</h5>
 				<div className="acess2">
-					<Button>Continue with Facebook</Button>
+					<Button href="/facebook">Continue with Facebook</Button>
 					<Button>Continue with Instagram</Button>
 				</div>
 			</div>

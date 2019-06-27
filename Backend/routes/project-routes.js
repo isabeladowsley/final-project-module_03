@@ -46,11 +46,6 @@ router.post('/new-project', (req, res, next) => {
 		});
 });
 
-// router.delete('/my-projects/:id', (req, res, next) => {
-// 	debugger;
-// 	Project.findOneAndDelete({ _id: req.params.id }).then((data) => res.json(data)).catch(next);
-// });
-
 router.delete('/my-projects/:id', (req, res, next) => {
 	if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
 		res.status(400).json({ message: 'Specified id is not valid' });
@@ -74,7 +69,9 @@ router.get('/allprojects', (req, res, next) => {
 	Project.find()
 		.then((allProjectsFromDB) => {
 			console.log('Retrieved projects from DB:', allProjectsFromDB);
-			res.json();
+			let json = JSON.stringify(allProjectsFromDB);
+			// console.log(json);
+			res.send(allProjectsFromDB);
 		})
 		.catch((error) => {
 			console.log('Error while getting the projects from the DB: ', error);

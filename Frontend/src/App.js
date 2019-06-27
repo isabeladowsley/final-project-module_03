@@ -12,6 +12,7 @@ import NewProject from './Components/NewProject';
 import NewEvent from './Components/NewEvent';
 import AuthService from './Components/auth/AuthService';
 import MyProjects from './Components/MyProjects';
+import MyEvents from './Components/MyEvents';
 import Profile from './Components/Profile';
 
 class App extends Component {
@@ -75,10 +76,14 @@ class App extends Component {
 						path="/new-event"
 						render={(props) => <NewEvent currentUser={this.state.user} {...props} />}
 					/>
-					<Route path="/profile" render={(props) => <Profile currentUser={this.state.user} />} />
+					<Route path="/profile" render={(props) => <Profile currentUser={this.state.user} {...props} />} />
 					<Route
 						path="/my-projects"
 						render={(props) => <MyProjects currentUser={this.state.user} {...props} />}
+					/>
+					<Route
+						path="/my-events"
+						render={(props) => <MyEvents currentUser={this.state.user} {...props} />}
 					/>
 				</Switch>
 			</div>

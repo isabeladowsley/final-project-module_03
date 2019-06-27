@@ -5,6 +5,8 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const bcryptSalt = 10;
 
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 router.post('/signup', (req, res, next) => {
 	const { name, address, geolocation, username, originalPassword, imageUrl } = req.body;
 	if (name == '' || address == '' || username == '' || originalPassword.match(/[0-9]/) === null) {
@@ -128,6 +130,7 @@ router.get('/getUser', (req, res, next) => {
 	if (req.isAuthenticated()) {
 		User.findById(req.user.id)
 			.populate('projects')
+			.populate('events')
 			.then((result) => {
 				res.status(200).json(result);
 			})
@@ -137,5 +140,22 @@ router.get('/getUser', (req, res, next) => {
 	}
 	return;
 });
+
+// Facebook
+
+// passport.use(
+// 	new FacebookStrategy(
+// 		{
+// 			clientID: FACEBOOK_APP_ID,
+// 			clientSecret: FACEBOOK_APP_SECRET,
+// 			callbackURL: 'http://localhost:5000/auth/facebook/callback'
+// 		},
+// 		function(accessToken, refreshToken, profile, cb) {
+// 			User.findOrCreate({ facebookId: profile.id }, function(err, user) {
+// 				return cb(err, user);
+// 			});
+// 		}
+// 	)
+// );
 
 module.exports = router;
