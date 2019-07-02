@@ -3,9 +3,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import MapContainer from './MapContainer';
 import LocationSearchInput from './LocationSearchInput';
+import NavBar from './Navbar';
 import { Button } from 'react-bootstrap';
 
 import TimePicker from 'react-gradient-timepicker';
+// import TimeField from 'react-simple-timefield';
 
 class NewEvent extends Component {
 	constructor(props) {
@@ -13,6 +15,8 @@ class NewEvent extends Component {
 		this.state = {
 			name: '',
 			address: '',
+			date: '',
+			time: '',
 			geolocation: '',
 			description: '',
 			author: this.props.currentUser
@@ -41,13 +45,22 @@ class NewEvent extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { name, date, address, geolocation, description, author } = this.state;
+		const { name, date, time, address, geolocation, description, author } = this.state;
 		axios
-			.post('http://localhost:5000/api/new-event', { name, date, address, geolocation, description, author })
+			.post('http://localhost:5000/api/new-event', {
+				name,
+				date,
+				time,
+				address,
+				geolocation,
+				description,
+				author
+			})
 			.then(() => {
 				this.setState({
 					name: '',
 					date: '',
+					time: '',
 					address: '',
 					geolocation: '',
 					description: ''
@@ -62,6 +75,7 @@ class NewEvent extends Component {
 	render() {
 		return (
 			<div>
+				<NavBar handleLogout={this.props.handleLogout} />
 				<form onSubmit={(e) => this.handleSubmit(e)}>
 					<div className="form-group">
 						<label htmlFor="name">Event's name</label>
@@ -73,7 +87,7 @@ class NewEvent extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<label htmlFor="name">Date</label>
+						<label htmlFor="date">Date</label>
 						<input
 							type="date"
 							className="form-control"
@@ -82,22 +96,25 @@ class NewEvent extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-						<TimePicker
-							time="01:00"
-							theme="Bourbon"
-							className="timepicker"
-							placeholder="Start Time"
-							onSet={(val) => {
-								alert('val:' + val.format12);
-							}}
-						/>
+						<label htmlFor="time">Starting time</label>
 						<input
 							type="time"
 							className="form-control"
-							name="date"
-							aria-describedby="date"
+							name="time"
+							aria-describedby="time"
 							onChange={(e) => this.changeHandler(e)}
 						/>
+						{/* // <TimePicker
+						// 	name="time"
+						// 	time="01:00"
+						// 	theme="Bourbon"
+						// 	className="timepicker"
+						// 	placeholder="Start Time"
+						// 	onSet={(val) => {
+						// 		alert('val:' + val.format12);
+						// 	}}
+						// /> */}
+
 						<br />
 						<label htmlFor="description">Tell us more about it</label>
 						<textarea

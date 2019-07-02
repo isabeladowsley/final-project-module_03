@@ -6,7 +6,7 @@ class AuthService {
 		withCredentials: true
 	});
 
-	signup = (name, address, geolocation, username, password, imageUrl) => {
+	signup = (name, address, geolocation, username, password, imageUrl, email) => {
 		return this.service
 			.post('/api/signup', {
 				name: name,
@@ -14,7 +14,8 @@ class AuthService {
 				geolocation: geolocation,
 				username: username,
 				originalPassword: password,
-				imageUrl: imageUrl
+				imageUrl: imageUrl,
+				email: email
 			})
 			.then((response) => {
 				console.log('response in authservice', response);

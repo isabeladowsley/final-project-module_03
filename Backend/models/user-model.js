@@ -8,9 +8,10 @@ const userSchema = new Schema({
 		required: true,
 		unique: true
 	},
+	email: String,
 	projects: [ { type: Schema.Types.ObjectId, ref: 'Project' } ],
 	events: [ { type: Schema.Types.ObjectId, ref: 'Event' } ],
-	// eventsattending: { type: Schema.Types.Mixed, ref: 'Event' },
+	eventsAttending: [ { type: Schema.Types.Mixed, ref: 'Event' } ],
 	address: String,
 	geolocation: Object,
 	encryptedPassword: {
@@ -21,7 +22,9 @@ const userSchema = new Schema({
 	timestamps: {
 		createdAt: '',
 		updatedAt: ''
-	}
+	},
+	resetPasswordToken: String,
+	resetPasswordExpires: Date
 });
 
 const User = mongoose.model('User', userSchema);

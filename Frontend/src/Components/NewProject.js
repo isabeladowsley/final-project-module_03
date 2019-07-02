@@ -3,7 +3,9 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import MapContainer from './MapContainer';
 import LocationSearchInput from './LocationSearchInput';
+import NavBar from './Navbar';
 import { Button } from 'react-bootstrap';
+import service from '../service';
 
 // import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
@@ -15,7 +17,8 @@ class NewProject extends Component {
 			address: '',
 			geolocation: '',
 			description: '',
-			author: this.props.currentUser
+			author: this.props.currentUser,
+			image_url: ''
 		};
 		this.changeHandler = this.changeHandler.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,15 +44,23 @@ class NewProject extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { name, address, geolocation, description, author } = this.state;
+		const { name, address, geolocation, description, author, image_url } = this.state;
 		axios
-			.post('http://localhost:5000/api/new-project', { name, address, geolocation, description, author })
+			.post('http://localhost:5000/api/new-project', {
+				name,
+				address,
+				geolocation,
+				description,
+				author,
+				image_url
+			})
 			.then(() => {
 				this.setState({
 					name: '',
 					address: '',
 					geolocation: '',
-					description: ''
+					description: '',
+					image_url: ''
 				});
 				Swal.fire('Your project was submitted!');
 				this.props.history.push('/');
@@ -57,9 +68,27 @@ class NewProject extends Component {
 			.catch((error) => console.log(error));
 	};
 
+	handleFileUpload = (e) => {
+		console.log('The file to be uploaded is: ', e.target.files[0]);
+
+		const uploadData = new FormData();
+		uploadData.append('imageUrl', e.target.files[0]);
+
+		service
+			.handleUpload(uploadData)
+			.then((response) => {
+				console.log('response is: ', response);
+				this.setState({ image_url: response.secure_url });
+			})
+			.catch((err) => {
+				console.log('Error while uploading the file: ', err);
+			});
+	};
+
 	render() {
 		return (
 			<div>
+				<NavBar handleLogout={this.props.handleLogout} />
 				<form onSubmit={(e) => this.handleSubmit(e)}>
 					<div className="form-group">
 						<label htmlFor="name">Project's name</label>
@@ -79,6 +108,9 @@ class NewProject extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
+
+						<label htmlFor="picture">Add a picture</label>
+						<input type="file" onChange={(e) => this.handleFileUpload(e)} />
 
 						<Button className="btn" variant="info" type="submit">
 							Save the project

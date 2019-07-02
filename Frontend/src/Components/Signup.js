@@ -14,7 +14,8 @@ class Signup extends Component {
 			username: '',
 			password: '',
 			imageUrl: '',
-			error: ''
+			error: '',
+			email: ''
 		};
 		this.setAddress = this.setAddress.bind(this);
 		this.setGeo = this.setGeo.bind(this);
@@ -42,10 +43,10 @@ class Signup extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { name, address, geolocation, username, password, imageUrl } = this.state;
+		const { name, address, geolocation, username, password, imageUrl, email } = this.state;
 
 		this.authService
-			.signup(name, address, geolocation, username, password, imageUrl)
+			.signup(name, address, geolocation, username, password, imageUrl, email)
 			.then((response) => {
 				console.log('response received', response);
 				this.props.history.push('/login');
@@ -86,6 +87,15 @@ class Signup extends Component {
 							className="form-control"
 							name="name"
 							aria-describedby="name"
+							onChange={(e) => this.changeHandler(e)}
+						/>
+						<br />
+						<label htmlFor="email">Email</label>
+						<input
+							type="text"
+							className="form-control"
+							name="email"
+							aria-describedby="email"
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />

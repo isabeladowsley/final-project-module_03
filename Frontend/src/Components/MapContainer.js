@@ -57,8 +57,8 @@ export class MapContainer extends Component {
 
 	render() {
 		const style = {
-			width: '100%',
-			height: '100%'
+			width: '80%',
+			height: 'auto',
 		};
 
 		const lat = this.state.user.geolocation.lat;
@@ -66,7 +66,7 @@ export class MapContainer extends Component {
 
 		return (
 			<div>
-				<Map google={this.props.google} zoom={14} style={style} initialCenter={{ lat: lat, lng: lng }}>
+				<Map className='map' google={this.props.google} zoom={14} style={style} initialCenter={{ lat: lat, lng: lng }}>
 					<Marker name={'Your place!'} position={this.state.geolocation} onClick={this.onMarkerClick} />
 					<InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
 						<div>

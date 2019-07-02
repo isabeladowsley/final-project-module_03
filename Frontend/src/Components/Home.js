@@ -14,12 +14,13 @@ class Home extends Component {
 					<Button className="btn" variant="info" href="/login">
 						Log-in
 					</Button>
+					<a href="/forgotPassword">Forgot your password?</a>
 				</div>
-				<h5> _____ OR ______</h5>
+				{/* <h5> _____ OR ______</h5>
 				<div className="acess2">
 					<Button href="/facebook">Continue with Facebook</Button>
 					<Button>Continue with Instagram</Button>
-				</div>
+				</div> */}
 			</div>
 		);
 	}

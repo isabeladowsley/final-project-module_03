@@ -3,16 +3,15 @@ $green: #53827f;
 
 .btn {
 	margin: 20px;
-	font-family: "Josefin Sans", sans-serif;
-	font-size: 13px;
-	text-transform: uppercase;
-	letter-spacing: 1.5px;
+	font-size: 12px;
+	vertical-align: middle;
+	// font-family: "Josefin Sans", sans-serif;
 }
 
 .btn:hover {
-	font-size: 16px;
+	font-size: 14px;
 	color: white;
-	vertical-align: middle;
+	vertical-align: baseline;
 }
 
 .btn-purple {
@@ -33,4 +32,9 @@ $green: #53827f;
 	outline: none;
 	cursor: pointer;
 	transition: all .4s;
+	border: none;
+}
+
+.btn-green:hover {
+	background-color: $purple;
 }

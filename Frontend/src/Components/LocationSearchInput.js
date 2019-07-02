@@ -37,7 +37,7 @@ class LocationSearchInput extends React.Component {
 	render() {
 		return (
 			<div>
-				<input type="button" value="Save the address" onClick={this.handleAddress} />
+				<input className="btn btn-purple" type="button" value="Save the address" onClick={this.handleAddress} />
 
 				<PlacesAutocomplete
 					value={this.state.address}

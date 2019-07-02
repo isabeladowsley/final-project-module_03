@@ -2,26 +2,54 @@ body {
   height: 100%;
   width: 100%;
   background-color: #3a4042;
-  color: white; }
+  color: white;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 200;
+  letter-spacing: 1.5px; }
+
+h1 {
+  font-size: 16px;
+  margin-left: 5%; }
+
+h2 {
+  font-size: 14px;
+  margin-left: 5%; }
 
 .navbar {
   background-color: #1c1028;
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 100%; }
+  height: 1200px;
+  margin-right: 0px; }
+
+.maincontainer {
+  display: flex;
+  flex-direction: row; }
+
+.maintext {
+  margin-top: 10%;
+  font-size: 14px;
+  border: none;
+  padding: 10px; }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  width: 140%;
+  align-items: middle; }
 
 .btn {
   margin: 20px;
-  font-family: "Josefin Sans", sans-serif;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px; }
+  font-size: 12px;
+  vertical-align: middle; }
 
 .btn:hover {
-  font-size: 16px;
+  font-size: 14px;
   color: white;
-  vertical-align: middle; }
+  vertical-align: baseline; }
 
 .btn-purple {
   width: 180px;
@@ -39,7 +67,11 @@ body {
   background-color: #53827f;
   outline: none;
   cursor: pointer;
-  transition: all .4s; }
+  transition: all .4s;
+  border: none; }
+
+.btn-green:hover {
+  background-color: #1c1028; }
 
 .logo {
   width: 50%;
@@ -56,9 +88,49 @@ body {
   background-color: #53827f;
   color: white; }
 
-#map {
-  height: 100%; }
+#profile_img {
+  display: inline;
+  margin-right: 5%;
+  margin-left: 5%;
+  border-radius: 20%;
+  margin-top: -3%; }
+
+.Chatbox {
+  position: fixed;
+  right: 10px;
+  top: 5%;
+  width: 350px;
+  border: 1px solid #ccc; }
+
+.map {
+  margin-left: 0%; }
 
 .infowindow {
   color: #1c1028;
   font-size: 16px; }
+
+.card {
+  height: auto;
+  width: 250px;
+  margin: 5%;
+  font-size: 14px; }
+
+.card-title {
+  color: #1c1028; }
+
+.card-text {
+  margin: 3%;
+  padding-bottom: 5%; }
+
+.flex-row-3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center; }
+
+.flex-row-3-child {
+  width: 25%; }
+
+.card-image {
+  background-image: url("../images/default_project.jpg");
+  background-size: cover; }

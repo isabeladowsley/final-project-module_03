@@ -14,6 +14,12 @@ import AuthService from './Components/auth/AuthService';
 import MyProjects from './Components/MyProjects';
 import MyEvents from './Components/MyEvents';
 import Profile from './Components/Profile';
+import AllProjects from './Components/AllProjects';
+import AllEvents from './Components/AllEvents';
+import Event from './Components/Event.js';
+import forgotPassword from './Components/forgotPassword';
+import resetPassword from './Components/resetPassword';
+import ChatMessage from './Components/ChatMessage';
 
 class App extends Component {
 	state = {
@@ -57,6 +63,8 @@ class App extends Component {
 					<Route exact path="/" component={Home} />
 					<Route path="/signup" render={(props) => <Signup {...props} />} />
 					<Route exact path="/login" render={(props) => <Login setUser={this.setUser} {...props} />} />
+					<Route exact path="/forgotPassword" component={forgotPassword} />
+					<Route exact path="/reset" component={resetPassword} />
 				</Switch>
 			);
 		}
@@ -85,6 +93,20 @@ class App extends Component {
 						path="/my-events"
 						render={(props) => <MyEvents currentUser={this.state.user} {...props} />}
 					/>
+					<Route
+						path="/allprojects"
+						render={(props) => <AllProjects currentUser={this.state.user} {...props} />}
+					/>
+					<Route
+						exact
+						path="/allevents"
+						render={(props) => <AllEvents currentUser={this.state.user} {...props} />}
+					/>
+					<Route
+						path="/allevents/:id"
+						render={(props) => <Event currentUser={this.state.user} {...props} />}
+					/>
+					<Route path="/chat" render={(props) => <ChatMessage currentUser={this.state.user} {...props} />} />
 				</Switch>
 			</div>
 		);

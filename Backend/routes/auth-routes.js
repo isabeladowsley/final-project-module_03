@@ -8,7 +8,7 @@ const bcryptSalt = 10;
 const FacebookStrategy = require('passport-facebook').Strategy;
 
 router.post('/signup', (req, res, next) => {
-	const { name, address, geolocation, username, originalPassword, imageUrl } = req.body;
+	const { name, address, geolocation, username, originalPassword, imageUrl, email } = req.body;
 	if (name == '' || address == '' || username == '' || originalPassword.match(/[0-9]/) === null) {
 		// send error JSON if any of the fields is empty or password doesn't contain a number
 		res.status(500).json({ message: 'All fields need to be filled and password must contain a number.' });
@@ -26,7 +26,7 @@ router.post('/signup', (req, res, next) => {
 			const salt = bcrypt.genSaltSync(bcryptSalt);
 			const encryptedPassword = bcrypt.hashSync(originalPassword, salt);
 
-			User.create({ name, address, geolocation, username, encryptedPassword, imageUrl })
+			User.create({ name, address, geolocation, username, encryptedPassword, imageUrl, email })
 				// .populate('projects')
 				.then((userDoc) => {
 					console.log(userDoc);

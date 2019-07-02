@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Button } from 'react-bootstrap';
 
 class NavBar extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar className="navbar">
+				<Navbar className="sidebar">
+					<Button className="btn btn-green" to="/t">
+						<i className="fas fa-home" /> &nbsp; HOME PAGE
+					</Button>
 					<ul>
 						<a className="btn btn-purple" href="/profile">
-							My profile
+							Edit your profile
 						</a>
 						<a className="btn btn-purple" href="/my-projects">
 							My projects
@@ -16,9 +19,16 @@ class NavBar extends Component {
 						<a className="btn btn-purple" href="/my-events">
 							My events
 						</a>
+
+						<a className="btn btn-purple" href="/allprojects">
+							All projects
+						</a>
+						<a className="btn btn-purple" href="/allevents">
+							All events
+						</a>
 					</ul>
 					<button className="btn btn-green" onClick={this.props.handleLogout}>
-						Log-out
+						LOG OUT
 					</button>
 				</Navbar>
 			</div>

@@ -7,6 +7,7 @@ const projectSchema = new Schema({
 	geolocation: '',
 	description: String,
 	author: { type: Schema.Types.ObjectId, ref: 'User' },
+	image_url: String,
 	timestamps: {
 		createdAt: '',
 		updatedAt: ''
