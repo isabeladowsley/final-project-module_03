@@ -8,7 +8,7 @@ class AuthService {
 
 	signup = (name, address, geolocation, username, password, imageUrl, email) => {
 		return this.service
-			.post('/api/signup', {
+			.post('/signup', {
 				name: name,
 				address: address,
 				geolocation: geolocation,
@@ -28,7 +28,7 @@ class AuthService {
 
 	login = (username, password) => {
 		return this.service
-			.post('/api/login', { username: username, password: password })
+			.post('/login', { username: username, password: password })
 			.then((response) => response.data);
 	};
 
