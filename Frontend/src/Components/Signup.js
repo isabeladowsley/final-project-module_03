@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AuthService from './auth/AuthService';
 import service from '../service';
 import LocationSearchInput from './LocationSearchInput';
-import MapContainer from './MapContainer';
 
 class Signup extends Component {
 	constructor(props) {

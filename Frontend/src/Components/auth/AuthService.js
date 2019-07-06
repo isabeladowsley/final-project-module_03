@@ -33,11 +33,11 @@ class AuthService {
 	};
 
 	logout = () => {
-		return this.service.post('/api/logout');
+		return this.service.post('/logout');
 	};
 
 	currentUser = () => {
-		return this.service.get('/api/my-page').then((response) => response.data);
+		return this.service.get('/my-page').then((response) => response.data);
 	};
 }
 

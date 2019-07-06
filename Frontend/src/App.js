@@ -34,7 +34,7 @@ class App extends Component {
 	};
 
 	componentDidMount() {
-		fetch('${process.env.REACT_APP_API_URL}/getUser', { credentials: 'include' })
+		fetch(`${process.env.REACT_APP_API_URL}/getUser`, { credentials: 'include' })
 			.then((response) => {
 				console.log(response);
 				if (!response.ok) {
