@@ -26,7 +26,7 @@ class Project extends Component {
 	componentDidMount() {
 		const { params } = this.props.match;
 		axios
-			.get(`http://localhost:5000/api/allprojects/${params.id}`)
+			.get(`${process.env.REACT_APP_API_URL}/allprojects/${params.id}`)
 			.then((responseFromApi) => {
 				const theProject = responseFromApi.data;
 				this.setState({ project: theProject, author: theProject.author.name });
@@ -39,7 +39,7 @@ class Project extends Component {
 	handleFormSubmit = (e) => {
 		e.preventDefault();
 		const { project, comment } = this.state;
-		axios.put(`http://localhost:5000/api/allprojects/${this.state.project._id}`, { project, comment });
+		axios.put(`${process.env.REACT_APP_API_URL}/allprojects/${this.state.project._id}`, { project, comment });
 
 		Swal.fire('Thanks for your info');
 		this.props.history.push('/allprojects');

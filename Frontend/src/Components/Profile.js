@@ -29,7 +29,7 @@ class Profile extends Component {
 		event.preventDefault();
 
 		axios
-			.put(`http://localhost:5000/api/users/${this.state.id}`, { name, address, username, imageUrl })
+			.put(`${process.env.REACT_APP_API_URL}/users/${this.state.id}`, { name, address, username, imageUrl })
 			.then(() => {
 				this.props.history.push('/');
 			})

@@ -28,7 +28,7 @@ export default class ResetPassword extends Component {
 	async componentDidMount() {
 		const { match: { params: { token } } } = this.props;
 		try {
-			const response = await axios.get('http://localhost:5000/api/reset', {
+			const response = await axios.get(`${process.env.REACT_APP_API_URL}/reset`, {
 				params: {
 					resetPasswordToken: token
 				}

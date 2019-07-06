@@ -7,7 +7,7 @@ import NavBar from './Navbar.js';
 class MyProjects extends Component {
 	delete = (id) => {
 		axios
-			.delete(`http://localhost:5000/api/allprojects/${id}`)
+			.delete(`${process.env.REACT_APP_API_URL}/allprojects/${id}`)
 			.then(Swal.fire('Your project was deleted!'))
 			.catch((err) => console.log(err));
 		this.props.history.push('/my-projects');

@@ -45,7 +45,7 @@ class NewEvent extends Component {
 
 		const { name, date, time, address, geolocation, description, author, image_url } = this.state;
 		axios
-			.post('http://localhost:5000/api/new-event', {
+			.post(`${process.env.REACT_APP_API_URL}/new-event`, {
 				name,
 				date,
 				time,

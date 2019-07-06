@@ -47,7 +47,7 @@ class Event extends Component {
 	getSingleEvent = () => {
 		const { params } = this.props.match;
 		axios
-			.get(`http://localhost:5000/api/allevents/${params.id}`)
+			.get(`${process.env.REACT_APP_API_URL}/allevents/${params.id}`)
 			.then((responseFromApi) => {
 				const theEvent = responseFromApi.data;
 				this.setState({ event: theEvent, author: theEvent.author.name, atendees: theEvent.atendees });
@@ -60,7 +60,7 @@ class Event extends Component {
 	handleFormSubmit = (e) => {
 		e.preventDefault();
 		const { event, isGoing, comment, user } = this.state;
-		axios.put(`http://localhost:5000/api/allevents/${this.state.event._id}`, { event, isGoing, comment, user });
+		axios.put(`${process.env.REACT_APP_API_URL}/allevents/${this.state.event._id}`, { event, isGoing, comment, user });
 
 		Swal.fire('Thanks for your info');
 		this.props.history.push('/allevents');
@@ -99,7 +99,10 @@ class Event extends Component {
 						Description: <span className="text-white">{this.state.event.description}</span>
 					</h3>
 					<br />
-					<p> {countAtendees} people have already confirmed!</p>
+					<p>
+						{' '}
+						<i class="fas fa-users" /> &nbsp; {countAtendees} persons have already confirmed!
+					</p>
 					<h3 className="text-green">Are you coming: </h3>
 					<input
 						name="isGoing"

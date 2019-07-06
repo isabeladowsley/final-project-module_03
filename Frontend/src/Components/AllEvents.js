@@ -18,7 +18,7 @@ class AllEvents extends Component {
 	};
 
 	componentDidMount() {
-		fetch('http://localhost:5000/api/allevents')
+		fetch(`${process.env.REACT_APP_API_URL}/allevents`)
 			.then((response) => {
 				return response.json();
 			})
@@ -72,7 +72,8 @@ class AllEvents extends Component {
 							<br />
 							<p className="card-text">
 								{' '}
-								{this.countAtendees(event.atendees)} people have already confirmed!
+								<i class="fas fa-users" /> &nbsp;
+								{this.countAtendees(event.atendees)} persons have already confirmed!
 							</p>
 							<button className="btn-purple btn-card" onClick={() => this.redirect(event._id)}>
 								SEE MORE

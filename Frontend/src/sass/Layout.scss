@@ -12,6 +12,7 @@ body {
 	text-transform: uppercase;
 	font-weight: 200;
 	letter-spacing: 1.5px;
+	z-index: 1;
 }
 
 h1 {
@@ -31,6 +32,11 @@ h3 {
 
 h4 {
 	font-size: 12px;
+	margin-left: 5%;
+}
+
+h5 {
+	font-size: 10px;
 	margin-left: 5%;
 }
 
@@ -125,4 +131,10 @@ form {
 
 .right-bottom {
 	right: 10%;
+}
+
+#footer {
+	display: inline-block;
+	align-content: center;
+	margin-left: 40%;
 }

@@ -30,7 +30,7 @@ class forgotPassword extends Component {
 			});
 		} else {
 			try {
-				const response = await axios.post('http://localhost:5000/api/forgotPassword', {
+				const response = await axios.post(`${process.env.REACT_APP_API_URL}/forgotPassword`, {
 					email
 				});
 				console.log(response.data);

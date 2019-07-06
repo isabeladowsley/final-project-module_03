@@ -13,7 +13,7 @@ class AllProjects extends Component {
 	}
 
 	componentDidMount() {
-		fetch('http://localhost:5000/api/allprojects')
+		fetch(`${process.env.REACT_APP_API_URL}/allprojects`)
 			.then((response) => {
 				return response.json();
 			})

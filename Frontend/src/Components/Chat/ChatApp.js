@@ -8,8 +8,8 @@ const Chatkit = require('@pusher/chatkit-server');
 // console.log('testing ', env.REACT_APP_INSTANCE_LOCATOR);
 
 const chatkit = new Chatkit.default({
-	instanceLocator: 'v1:us1:5edd25d8-664f-425e-93f9-4603c0d9431f',
-	key: '351556d8-4ba7-4e4b-8ea1-6ac81d417760:NsaR4PuSLGg4+G82UuGfM44xFsdtLgfce5WeiEpzMMU='
+	instanceLocator: `${process.env.REACT_APP_INSTANCE_LOCATOR}`,
+	key: `${process.env.REACT_APP_SECRET_KEY}`
 });
 
 class ChatApp extends Component {

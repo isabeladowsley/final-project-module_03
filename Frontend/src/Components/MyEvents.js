@@ -9,7 +9,7 @@ var moment = require('moment');
 class MyEvents extends Component {
 	delete = (id) => {
 		axios
-			.delete(`http://localhost:5000/api/my-events/${id}`)
+			.delete(`${process.env.REACT_APP_API_URL}/my-events/${id}`)
 			.then(Swal.fire('Your event was deleted!'))
 			.catch((err) => console.log(err));
 		window.location.reload();

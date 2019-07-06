@@ -45,7 +45,7 @@ class NewProject extends Component {
 
 		const { name, address, geolocation, description, author, image_url } = this.state;
 		axios
-			.post('http://localhost:5000/api/new-project', {
+			.post(`${process.env.REACT_APP_API_URL}/new-project`, {
 				name,
 				address,
 				geolocation,

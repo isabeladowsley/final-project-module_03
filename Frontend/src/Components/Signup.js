@@ -78,55 +78,57 @@ class Signup extends Component {
 
 	render() {
 		return (
-			<div className="signup">
-				<form onSubmit={(e) => this.handleSubmit(e)}>
-					{/* <div className="row"> */}
-					<input
-						type="text"
-						className="signup-input"
-						name="name"
-						aria-describedby="name"
-						placeholder="FULL NAME"
-						onChange={(e) => this.changeHandler(e)}
-					/>
-					<br />
-					<input
-						type="text"
-						className="signup-input"
-						name="email"
-						aria-describedby="email"
-						placeholder="EMAIL"
-						onChange={(e) => this.changeHandler(e)}
-					/>
-					&nbsp; &nbsp; &nbsp;
-					<br />
-					<input
-						type="text"
-						className="signup-input"
-						name="username"
-						aria-describedby="username"
-						placeholder="USERNAME"
-						onChange={(e) => this.changeHandler(e)}
-					/>
-					<p> Your password must contain one number</p>
-					<input
-						type="string"
-						className="signup-input"
-						name="password"
-						aria-describedby="password"
-						placeholder="PASSWORD"
-						onChange={(e) => this.changeHandler(e)}
-					/>
-					<br />
-					&nbsp; <p>Your picture</p>
-					<input type="file" onChange={(e) => this.handleFileUpload(e)} />
-					{this.state.error ? <p>{this.state.error}</p> : ''}
-					<p>Please, enter your address</p>
-					<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
-					<button className="btn btn-green" type="submit">
-						<i class="fas fa-sign-out-alt" /> &nbsp; SIGN UP
-					</button>
-				</form>
+			<div className="entire-screen">
+				<div className="signup">
+					<form onSubmit={(e) => this.handleSubmit(e)}>
+						{/* <div className="row"> */}
+						<input
+							type="text"
+							className="signup-input"
+							name="name"
+							aria-describedby="name"
+							placeholder="FULL NAME"
+							onChange={(e) => this.changeHandler(e)}
+						/>
+						<br />
+						<input
+							type="text"
+							className="signup-input"
+							name="email"
+							aria-describedby="email"
+							placeholder="EMAIL"
+							onChange={(e) => this.changeHandler(e)}
+						/>
+						&nbsp; &nbsp; &nbsp;
+						<br />
+						<input
+							type="text"
+							className="signup-input"
+							name="username"
+							aria-describedby="username"
+							placeholder="USERNAME"
+							onChange={(e) => this.changeHandler(e)}
+						/>
+						<h5> Your password must contain one number</h5>
+						<input
+							type="string"
+							className="signup-input"
+							name="password"
+							aria-describedby="password"
+							placeholder="PASSWORD"
+							onChange={(e) => this.changeHandler(e)}
+						/>
+						<br />
+						&nbsp; <p>Your picture</p>
+						<input type="file" onChange={(e) => this.handleFileUpload(e)} />
+						{this.state.error ? <p>{this.state.error}</p> : ''}
+						<p>Please, enter your address</p>
+						<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
+						<button className="btn btn-green" type="submit">
+							<i class="fas fa-sign-out-alt" /> &nbsp; SIGN UP
+						</button>
+					</form>
+				</div>
 			</div>
 		);
 	}
