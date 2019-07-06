@@ -73,7 +73,7 @@ app.use(
 app.use(
 	session({
 		// secret: "some super secret goes here",
-		// secret: process.env.SESSION_SECRET,
+		secret: process.env.SESSION_SECRET,
 		resave: false,
 		saveUninitialized: false,
 		cookie: { maxAge: 60 * 60000 },
