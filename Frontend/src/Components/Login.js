@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AuthService from './auth/AuthService';
+import logo from '../images/logo.png';
 
 export default class Login extends Component {
 	state = {
@@ -33,22 +34,38 @@ export default class Login extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="login">
 				<form onSubmit={(e) => this.handleSubmit(e)}>
-					<h1>Log-in</h1>
-					<input
-						type="text"
-						name="username"
-						value={this.state.username}
-						onChange={(e) => this.changeHandler(e)}
-					/>
-					<input
-						type="password"
-						name="password"
-						value={this.state.password}
-						onChange={(e) => this.changeHandler(e)}
-					/>
-					<input type="submit" value="Log in" />
+					<img className="icon" src={logo} alt="logo" height="150px" />
+					<div className="row">
+						<i class="fas fa-user" />
+						&nbsp;
+						<input
+							id="username-input"
+							className="login-input"
+							type="text"
+							name="username"
+							placeholder="USERNAME"
+							value={this.state.username}
+							onChange={(e) => this.changeHandler(e)}
+						/>
+					</div>
+					<div className="row">
+						<i class="fas fa-key" />
+						&nbsp;
+						<input
+							className="login-input"
+							type="password"
+							name="password"
+							placeholder="PASSWORD"
+							value={this.state.password}
+							onChange={(e) => this.changeHandler(e)}
+						/>
+					</div>
+					{/* <input type="submit" value="Log in" /> */}
+					<button id="btn-login" className="btn btn-green" type="submit">
+						<i class="fas fa-user" /> &nbsp; LOG IN
+					</button>
 				</form>
 			</div>
 		);

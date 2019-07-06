@@ -1,10 +1,11 @@
 $purple: #1c1028;
 $green: #53827f;
+$dark-grey: #3a4042;
 
 body {
 	height: 100%;
 	width: 100%;
-	background-color: #3a4042;
+	background-color: $dark-grey;
 	color: white;
 	font-family: "Josefin Sans", sans-serif;
 	font-size: 10px;
@@ -23,25 +24,59 @@ h2 {
 	margin-left: 5%;
 }
 
+h3 {
+	font-size: 12px;
+	margin-left: 5%;
+}
+
+h4 {
+	font-size: 12px;
+	margin-left: 5%;
+}
+
+p {
+	font-size: 12px;
+	margin-left: 5%;
+}
+
+a {
+	color: white;
+}
+
+.text-purple {
+	color: $purple;
+}
+
+.text-green {
+	color: $green;
+}
+
+.text-white {
+	color: white;
+}
+
 .navbar {
 	background-color: $purple;
 	display: flex;
 	flex-direction: column;
 	width: 300px;
-	height: 1200px;
+	height: 1600px;
 	margin-right: 0px;
+	margin-top: -25%;
 }
 
 .maincontainer {
 	display: flex;
 	flex-direction: row;
+	padding-top: 5%;
 }
 
 .maintext {
-	margin-top: 10%;
+	margin-top: 0;
+	margin-left: 5%;
 	font-size: 14px;
 	border: none;
-	padding: 10px;
+	width: 900px;
 }
 
 .flex-row {
@@ -49,4 +84,45 @@ h2 {
 	flex-direction: row;
 	width: 140%;
 	align-items: middle;
+}
+
+.flex-row-3 {
+	display: flex;
+	flex-direction: row;
+	width: 140%;
+}
+
+.flex-row-3-child {
+	width: 25%;
+	height: auto;
+}
+
+input {
+	margin-bottom: 3%;
+	margin-left: 5%;
+	width: 70%;
+}
+
+textarea {
+	margin-bottom: 3%;
+	margin-left: 5%;
+}
+
+form {
+	margin-left: 5%;
+	margin-right: 5%;
+	width: 90%;
+}
+
+.form-input {
+	background-color: $dark-grey;
+	border: none;
+	color: white;
+	width: 95%;
+	border-bottom: white solid 1px;
+	margin-bottom: 10%;
+}
+
+.right-bottom {
+	right: 10%;
 }

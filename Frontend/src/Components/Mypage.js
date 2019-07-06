@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
 import NavBar from './Navbar.js';
 import MapContainer from './MapContainer.js';
-import ChatMessage from './ChatMessage.js';
-import { Button } from 'react-bootstrap';
 
-// import { default as Chatkit } from '@pusher/chatkit-server';
-
-// const chatkit = new Chatkit({
-// 	instanceLocator: process.env.REACT_APP_INSTANCE_LOCATOR,
-// 	key: process.env.REACT_APP_SECRET_KEY
-// });
+import ChatApp from './Chat/ChatApp.js';
 
 class Mypage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			user: this.props.currentUser
-			// currentView: 'ChatMessage'
 		};
 		this.changeView = this.changeView.bind(this);
 	}
@@ -28,22 +20,17 @@ class Mypage extends Component {
 	}
 
 	render() {
-		let view = '';
-		if (this.state.currentView === 'ChatMessage') {
-			view = <ChatMessage changeView={this.changeView} />;
-		}
-
 		return (
 			<div className="maincontainer">
 				<NavBar handleLogout={this.props.handleLogout} />
 				<div>
-					<Button className="btn btn-green" href="/new-project">
-						<i class="fas fa-plus" /> &nbsp; ADD A PROJECT
-					</Button>
+					<a className="btn btn-green" href="/new-project">
+						<i className="fas fa-plus" /> &nbsp; ADD A PROJECT
+					</a>
 
-					<Button className="btn btn-green" href="/new-event">
-						<i class="fas fa-plus" /> &nbsp; ADD AN EVENT
-					</Button>
+					<a className="btn btn-green" href="/new-event">
+						<i className="fas fa-plus" /> &nbsp; ADD AN EVENT
+					</a>
 
 					<br />
 					<br />
@@ -57,7 +44,7 @@ class Mypage extends Component {
 					<br />
 					<h2>Discover what is happening close to you!</h2>
 					<MapContainer currentUser={this.state.user} />
-					{/* <Chatapp currentUser={this.state.user} /> */}
+					<ChatApp currentUser={this.state.user} />
 				</div>
 			</div>
 		);

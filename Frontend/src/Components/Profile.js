@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './Navbar.js';
-// import { Button } from 'react-bootstrap';
 import AuthService from './auth/AuthService';
-
+import service from '../service';
 import axios from 'axios';
 
 class Profile extends Component {
@@ -13,7 +12,8 @@ class Profile extends Component {
 			name: this.props.currentUser.name,
 			address: this.props.currentUser.address,
 			username: this.props.currentUser.username,
-			password: this.props.currentUser.encryptedPassword
+			// password: this.props.currentUser.encryptedPassword,
+			imageUrl: this.props.currentUser.imageUrl
 		};
 		this.changeHandler = this.changeHandler.bind(this);
 	}
@@ -24,18 +24,18 @@ class Profile extends Component {
 		const name = this.state.name;
 		const address = this.state.address;
 		const username = this.state.username;
-		const password = this.state.password;
+		const imageUrl = this.state.imageUrl;
 
 		event.preventDefault();
 
 		axios
-			.put(`http://localhost:5000/api/users/${this.state.id}`, { name, address, username, password })
+			.put(`http://localhost:5000/api/users/${this.state.id}`, { name, address, username, imageUrl })
 			.then(() => {
 				this.props.history.push('/');
 			})
 			.catch((error) => console.log(error));
 
-		this.authService.signup(password);
+		// this.authService.signup(password);
 	};
 
 	changeHandler = (e) => {
@@ -45,17 +45,34 @@ class Profile extends Component {
 		});
 	};
 
+	handleFileUpload = (e) => {
+		console.log('The file to be uploaded is: ', e.target.files[0]);
+
+		const uploadData = new FormData();
+		uploadData.append('imageUrl', e.target.files[0]);
+
+		service
+			.handleUpload(uploadData)
+			.then((response) => {
+				console.log('response is: ', response);
+				this.setState({ imageUrl: response.secure_url });
+			})
+			.catch((err) => {
+				console.log('Error while uploading the file: ', err);
+			});
+	};
+
 	render() {
 		return (
 			<div className="maincontainer">
 				<NavBar />
 				<div className="maintext">
-					<hr />
-					<h3>Edit your profile</h3>
+					<h2>Edit your profile</h2>
 					<br />
 					<form onSubmit={this.handleFormSubmit}>
-						<label>Name:&nbsp; </label>
+						<label className="text-green">Name:&nbsp; </label>
 						<input
+							className="form-input"
 							type="text"
 							name="name"
 							value={this.state.name}
@@ -63,15 +80,29 @@ class Profile extends Component {
 						/>
 						<br />
 						<br />
-						<label>Address:&nbsp; </label>
-						<textarea name="address" value={this.state.address} onChange={(e) => this.changeHandler(e)} />
+						<label className="text-green">Address:&nbsp; </label>
+						<textarea
+							className="form-input"
+							name="address"
+							value={this.state.address}
+							onChange={(e) => this.changeHandler(e)}
+						/>
 						<br />
 						<br />
-						<label>Username: &nbsp; </label>
-						<textarea name="username" value={this.state.username} onChange={(e) => this.changeHandler(e)} />
+						<label className="text-green">Username: &nbsp; </label>
+						<textarea
+							className="form-input"
+							name="username"
+							value={this.state.username}
+							onChange={(e) => this.changeHandler(e)}
+						/>
 						<br />
 						<br />
-						<input className="btn btn-green" type="submit" value="Submit" />
+						<label className="text-green">Picture: &nbsp; </label>
+						<input type="file" onChange={(e) => this.handleFileUpload(e)} />
+						<br />
+						<br />
+						<input className="btn btn-green" type="submit" value="SUBMIT" />
 					</form>
 				</div>
 			</div>

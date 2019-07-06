@@ -6,11 +6,12 @@ const eventSchema = new Schema({
 	date: Date,
 	time: String,
 	address: String,
-	geolocation: String,
+	geolocation: {},
 	description: String,
 	author: { type: Schema.Types.ObjectId, ref: 'User' },
 	atendees: [ { type: Schema.Types.ObjectId, ref: 'User' } ],
 	comments: [],
+	image_url: String,
 	timestamps: {
 		createdAt: '',
 		updatedAt: ''

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Navbar, Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 
 class NavBar extends Component {
 	render() {
 		return (
 			<div>
 				<Navbar className="sidebar">
-					<Button className="btn btn-green" to="/t">
+					<a className="btn btn-green" href="/">
 						<i className="fas fa-home" /> &nbsp; HOME PAGE
-					</Button>
+					</a>
 					<ul>
 						<a className="btn btn-purple" href="/profile">
 							Edit your profile
@@ -28,7 +28,7 @@ class NavBar extends Component {
 						</a>
 					</ul>
 					<button className="btn btn-green" onClick={this.props.handleLogout}>
-						LOG OUT
+						<i className="fas fa-sign-out-alt" /> &nbsp; LOG OUT
 					</button>
 				</Navbar>
 			</div>

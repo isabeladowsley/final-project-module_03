@@ -1,0 +1,26 @@
+$purple: #1c1028;
+$green: #53827f;
+$dark-grey: #3a4042;
+
+.signup {
+	background-color: $dark-grey;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 2%;
+	// width: 50%;
+	// height: 400px;
+	border: solid 1px white;
+	padding: 20px;
+	// padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.signup-input {
+	background-color: $dark-grey;
+	border: none;
+	color: white;
+	width: 80%;
+	border-bottom: white solid 1px;
+	margin-bottom: 5%;
+	margin-left: 5%;
+}

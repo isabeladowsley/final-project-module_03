@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-// import { Card, Button } from 'react-bootstrap';
+
+import NavBar from './Navbar.js';
 
 class MyProjects extends Component {
 	delete = (id) => {
@@ -15,21 +16,24 @@ class MyProjects extends Component {
 
 	render() {
 		return (
-			<div className="flex-row-3">
-				{this.props.currentUser.projects.map((project, index) => (
-					<div className="card flex-row-3-child" key={index}>
-						<img className="card-image" src={project.image_url} alt="" height="200px" />
-						<br />
-						<h2 className="card-title">{project.name} </h2>
-						<br />
-						<p className="card-text">Address: {project.address}</p>
-						<br />
-						<p className="card-text">Description: {project.description}</p>
-						<button className="btn btn-purple" onClick={() => this.delete(project._id)}>
-							Delete the project
-						</button>
-					</div>
-				))}
+			<div className="maincontainer">
+				<NavBar handleLogout={this.props.handleLogout} />
+				<div className="flex-row-3">
+					{this.props.currentUser.projects.map((project, index) => (
+						<div className="card flex-row-3-child" key={index}>
+							<img className="card-image" src={project.image_url} alt="" height="200px" />
+							<br />
+							<h2 className="card-title">{project.name} </h2>
+							<br />
+							<p className="card-text">Address: {project.address}</p>
+							<br />
+							<p className="card-text">Description: {project.description}</p>
+							<button className="btn-card btn-purple" onClick={() => this.delete(project._id)}>
+								DELETE THE PROJECT
+							</button>
+						</div>
+					))}
+				</div>
 			</div>
 		);
 	}

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import AuthService from './auth/AuthService';
 import service from '../service';
-
 import LocationSearchInput from './LocationSearchInput';
+import MapContainer from './MapContainer';
 
 class Signup extends Component {
 	constructor(props) {
@@ -78,51 +78,54 @@ class Signup extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="signup">
 				<form onSubmit={(e) => this.handleSubmit(e)}>
-					<div className="form-group">
-						<label htmlFor="name">Full Name</label>
-						<input
-							type="text"
-							className="form-control"
-							name="name"
-							aria-describedby="name"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="email">Email</label>
-						<input
-							type="text"
-							className="form-control"
-							name="email"
-							aria-describedby="email"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="username">User Name</label>
-						<input
-							type="text"
-							className="form-control"
-							name="username"
-							aria-describedby="username"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<label htmlFor="password">Password</label>
-						<p>Your password must contain one number</p>
-						<input
-							type="string"
-							className="form-control"
-							name="password"
-							aria-describedby="password"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<label htmlFor="picture">Your picture</label>
-						<input type="file" onChange={(e) => this.handleFileUpload(e)} />
-						<input type="submit" value="Sign up" />
-						{this.state.error ? <p>{this.state.error}</p> : ''}
-						<p>Please, enter your address</p>
-						<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
-					</div>
+					{/* <div className="row"> */}
+					<input
+						type="text"
+						className="signup-input"
+						name="name"
+						aria-describedby="name"
+						placeholder="FULL NAME"
+						onChange={(e) => this.changeHandler(e)}
+					/>
+					<br />
+					<input
+						type="text"
+						className="signup-input"
+						name="email"
+						aria-describedby="email"
+						placeholder="EMAIL"
+						onChange={(e) => this.changeHandler(e)}
+					/>
+					&nbsp; &nbsp; &nbsp;
+					<br />
+					<input
+						type="text"
+						className="signup-input"
+						name="username"
+						aria-describedby="username"
+						placeholder="USERNAME"
+						onChange={(e) => this.changeHandler(e)}
+					/>
+					<p> Your password must contain one number</p>
+					<input
+						type="string"
+						className="signup-input"
+						name="password"
+						aria-describedby="password"
+						placeholder="PASSWORD"
+						onChange={(e) => this.changeHandler(e)}
+					/>
+					<br />
+					&nbsp; <p>Your picture</p>
+					<input type="file" onChange={(e) => this.handleFileUpload(e)} />
+					{this.state.error ? <p>{this.state.error}</p> : ''}
+					<p>Please, enter your address</p>
+					<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
+					<button className="btn btn-green" type="submit">
+						<i class="fas fa-sign-out-alt" /> &nbsp; SIGN UP
+					</button>
 				</form>
 			</div>
 		);

@@ -17,6 +17,7 @@ router.get('/new-event', (req, res, next) => {
 });
 
 router.post('/new-event', (req, res, next) => {
+	console.log('/new-event called');
 	Event.create({
 		name: req.body.name,
 		date: req.body.date,
@@ -24,37 +25,36 @@ router.post('/new-event', (req, res, next) => {
 		address: req.body.address,
 		geolocation: req.body.geolocation,
 		description: req.body.description,
-		author: req.body.author
+		author: req.body.author,
+		image_url: req.body.image_url
 	})
 		.then((response) => {
-			console.log('Project created', response);
+			console.log('Hey testing', response);
 			Event.findById(response.id)
-				.populate('author')
 				.then((response) => {
-					User.findOneAndUpdate(
+					return User.findOneAndUpdate(
 						{ _id: response.author._id },
-						{
-							$push: { events: response.id }
-						},
+						{ $push: { events: response.id } },
 						{ new: true }
 					);
-					res.json(response);
+				})
+				.then((updateUser) => {
+					res.json(updateUser);
 				})
 				.catch((err) => {
 					console.log(err);
 				});
 		})
 		.catch((err) => {
-			res.json(err);
+			res.status(500).json(err);
 		});
 });
 
 router.get('/allevents', (req, res, next) => {
 	Event.find()
+		.populate('author')
 		.then((allEventsFromDB) => {
-			// console.log('Retrieved events from DB:', allEventsFromDB);
 			let json = JSON.stringify(allEventsFromDB);
-			// console.log(json);
 			res.send(allEventsFromDB);
 		})
 		.catch((error) => {
@@ -63,15 +63,11 @@ router.get('/allevents', (req, res, next) => {
 });
 
 router.get('/allevents/:id', (req, res, next) => {
-	if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-		res.status(400).json({ message: 'Specified id is not valid' });
-		return;
-	}
-
-	Event.findById(req.params.id, req.body)
-		.then((Event) => {
-			console.log(req.params.id);
-			res.json(Event);
+	Event.findById(req.params.id)
+		.populate('author')
+		.then((event) => {
+			console.log(event);
+			res.json(event);
 		})
 		.catch((err) => {
 			res.json(err);
@@ -84,15 +80,38 @@ router.put('/allevents/:id', (req, res, next) => {
 		return;
 	}
 
-	User.findByIdAndUpdate(req.params.id, req.body)
-		.then(() => {
-			console.log(req.body);
-			console.log(req.params.id);
-			res.json({ message: `Event with ${req.params.id} is updated successfully.` });
-		})
-		.catch((err) => {
-			res.json(err);
-		});
+	Event.findByIdAndUpdate(
+		req.params.id,
+		{ $push: { comments: req.body.comment } },
+		{ safe: true, upsert: true, new: true },
+		function(err, model) {
+			console.log(err);
+		}
+	);
+
+	if (req.body.isGoing == true) {
+		Event.findByIdAndUpdate(
+			req.params.id,
+			{ $push: { atendees: req.body.user._id } },
+			{ safe: true, upsert: true, new: true },
+			function(err, model) {
+				console.log(err);
+			}
+		)
+			.then(() => {
+				User.findByIdAndUpdate(
+					req.body.user._id,
+					{ $push: { eventsAttending: req.params.id } },
+					{ safe: true, upsert: true, new: true },
+					function(err, model) {
+						console.log(err);
+					}
+				);
+			})
+			.catch((err) => {
+				res.json(err);
+			});
+	}
 });
 
 router.delete('/allevents/:id', (req, res, next) => {
@@ -111,9 +130,5 @@ router.delete('/allevents/:id', (req, res, next) => {
 
 	User.update({ _id: req.params.author }, { $pull: { events: { _id: req.params.id } } }, { safe: true });
 });
-
-// router.post('/confirmation', (req, res, next) => {
-// 	Event.findByIdAndUpdate(response.id , )
-// })
 
 module.exports = router;

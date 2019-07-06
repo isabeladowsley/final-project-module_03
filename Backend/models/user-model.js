@@ -11,7 +11,7 @@ const userSchema = new Schema({
 	email: String,
 	projects: [ { type: Schema.Types.ObjectId, ref: 'Project' } ],
 	events: [ { type: Schema.Types.ObjectId, ref: 'Event' } ],
-	eventsAttending: [ { type: Schema.Types.Mixed, ref: 'Event' } ],
+	eventsAttending: [ { type: Schema.Types.ObjectId, ref: 'Event' } ],
 	address: String,
 	geolocation: Object,
 	encryptedPassword: {

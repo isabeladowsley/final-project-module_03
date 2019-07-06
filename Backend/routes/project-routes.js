@@ -18,7 +18,6 @@ router.get('/new-project', (req, res, next) => {
 });
 
 router.post('/new-project', (req, res, next) => {
-	// User.find().populate('project');
 	Project.create({
 		name: req.body.name,
 		address: req.body.address,
@@ -28,18 +27,16 @@ router.post('/new-project', (req, res, next) => {
 		image_url: req.body.image_url
 	})
 		.then((response) => {
-			console.log(response);
 			Project.findById(response.id)
 				.then((response) => {
-					console.log('Testing', response);
-					User.findOneAndUpdate(
+					return User.findOneAndUpdate(
 						{ _id: response.author._id },
-						{
-							$push: { projects: response.id }
-						},
+						{ $push: { projects: response.id } },
 						{ new: true }
 					);
-					res.json(response);
+				})
+				.then((updateUser) => {
+					res.json(updateUser);
 				})
 				.catch((err) => {
 					console.log(err);
@@ -54,7 +51,6 @@ router.get('/allprojects', (req, res, next) => {
 	Project.find()
 		.populate('author')
 		.then((allProjectsFromDB) => {
-			// console.log('Retrieved projects from DB:', allProjectsFromDB);
 			let json = JSON.stringify(allProjectsFromDB);
 			res.send(allProjectsFromDB);
 		})
@@ -64,15 +60,14 @@ router.get('/allprojects', (req, res, next) => {
 });
 
 router.get('/allprojects/:id', (req, res, next) => {
-	Project.find()
-		.then((allProjectsFromDB) => {
-			console.log('Retrieved projects from DB:', allProjectsFromDB);
-			let json = JSON.stringify(allProjectsFromDB);
-			// console.log(json);
-			res.send(allProjectsFromDB);
+	Project.findById(req.params.id)
+		.populate('author')
+		.then((project) => {
+			console.log('Hey', req.params.id);
+			res.json(project);
 		})
-		.catch((error) => {
-			console.log('Error while getting the projects from the DB: ', error);
+		.catch((err) => {
+			res.json(err);
 		});
 });
 

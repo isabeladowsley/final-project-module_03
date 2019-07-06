@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import NavBar from './Navbar.js';
+
+var moment = require('moment');
 
 class Event extends Component {
 	constructor(props) {
@@ -8,29 +11,37 @@ class Event extends Component {
 		this.state = {
 			event: '',
 			isGoing: true,
-			user: this.props.curentUser
+			comment: '',
+			user: this.props.currentUser,
+			author: '',
+			atendees: []
 		};
-		this.handleInputChange = this.handleInputChange.bind(this);
+		this.changeHandler = this.changeHandler.bind(this);
+		this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+		this.getSingleEvent = this.getSingleEvent.bind(this);
+		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
-	handleInputChange(event) {
-		const target = event.target;
-		const value = target.type === 'checkbox' ? target.checked : target.value;
-		const name = target.name;
-
+	changeHandler = (e) => {
+		const { name, value } = e.target;
 		this.setState({
-			event: {
-				[name]: value
-			}
+			[name]: value
 		});
+	};
 
-		if (this.state.isGoing === true) {
-			this.state.event.atendees.push(this.state.user.id);
+	handleCheckboxChange = (event) => {
+		const atendees = this.state.atendees;
+		// console.log(atendees);
+		if (atendees.includes(this.state.user._id)) {
+			Swal.fire('Your presence is already confirmed');
+			this.setState({ isGoing: false });
+		} else {
+			this.setState({ isGoing: event.target.checked });
 		}
-	}
+	};
 
 	componentDidMount() {
-		this.getSingleProject();
+		this.getSingleEvent();
 	}
 
 	getSingleEvent = () => {
@@ -39,59 +50,68 @@ class Event extends Component {
 			.get(`http://localhost:5000/api/allevents/${params.id}`)
 			.then((responseFromApi) => {
 				const theEvent = responseFromApi.data;
-				this.setState({ event: theEvent });
+				this.setState({ event: theEvent, author: theEvent.author.name, atendees: theEvent.atendees });
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	};
 
-	handleSubmit = (e) => {
+	handleFormSubmit = (e) => {
 		e.preventDefault();
+		const { event, isGoing, comment, user } = this.state;
+		axios.put(`http://localhost:5000/api/allevents/${this.state.event._id}`, { event, isGoing, comment, user });
 
-		const { event } = this.state;
-		axios
-			.put('http://localhost:5000/api/allevents/:id', {
-				event
-			})
-			.then(() => {
-				this.setState({
-					event: ''
-				});
-				Swal.fire('Thanks for your info');
-				this.props.history.push('/allevents');
-			})
-			.catch((error) => console.log(error));
+		Swal.fire('Thanks for your info');
+		this.props.history.push('/allevents');
 	};
 
 	render() {
+		const formattedDate = moment(this.state.event.date).format('DD MMMM YYYY');
+
+		const countAtendees = this.state.atendees.length;
+
 		return (
-			<div>
-				<img className="card-image" src={this.state.event.image_url} alt="" height="200px" />
-				<br />
-				<h2 className="card-title">{this.state.event.name} </h2>
-				<br />
-				<p className="card-text">Created by : {this.state.event.author.name}</p>
-				<br />
-				<p className="card-text">Address: {this.state.event.address}</p>
-				<br />
-				<p className="card-text">Day: {this.state.event.date}</p>
-				<br />
-				<p className="card-text">Time: {this.state.event.time}</p>
-				<br />
-				<p className="card-text">Description: {this.state.event.description}</p>
-				<div className="flex-row">
-					<p className="card-text">Are you coming: </p>
+			<div className="maincontainer">
+				<NavBar handleLogout={this.props.handleLogout} />
+				<form onSubmit={this.handleFormSubmit}>
+					<img className="card-image" src={this.state.event.image_url} alt="" height="200px" />
+					<br />
+					<h2 className="text-purple">{this.state.event.name} </h2>
+					<br />
+					<h3 className="text-green">
+						Created by : <span className="text-white">{this.state.author}</span>
+					</h3>
+					<br />
+					<h3 className="text-green">
+						Address: <span className="text-white">{this.state.event.address}</span>
+					</h3>
+					<br />
+					<h3 className="text-green">
+						Day: <span className="text-white">{formattedDate}</span>
+					</h3>
+					<br />
+					<h3 className="text-green">
+						Time: <span className="text-white">{this.state.event.time}</span>
+					</h3>
+					<br />
+					<h3 className="text-green">
+						Description: <span className="text-white">{this.state.event.description}</span>
+					</h3>
+					<br />
+					<p> {countAtendees} people have already confirmed!</p>
+					<h3 className="text-green">Are you coming: </h3>
 					<input
 						name="isGoing"
 						type="checkbox"
 						checked={this.state.isGoing}
-						onChange={this.handleInputChange}
+						onChange={this.handleCheckboxChange}
 					/>
-				</div>
-				<label>Leave a comment </label>
-				<textarea className="form-control" name="description" rows="5" onChange={this.handleInputChange} />
-				<input className="btn btn-green" type="submit" value="Submit" />
+					<br />
+					<h3 className="text-green">Leave a comment </h3>
+					<textarea className="form-control" name="comment" rows="5" onChange={this.changeHandler} />
+					<input className="btn btn-green" type="submit" value="SUBMIT YOUR CHANGES" />
+				</form>
 			</div>
 		);
 	}

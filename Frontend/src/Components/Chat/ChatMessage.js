@@ -11,7 +11,7 @@ class ChatMessage extends Component {
 		return (
 			<div>
 				<button className="chat-button" onClick={this.changeView}>
-					Send a message
+					<i className="fas fa-comments" /> CHAT
 				</button>
 			</div>
 		);

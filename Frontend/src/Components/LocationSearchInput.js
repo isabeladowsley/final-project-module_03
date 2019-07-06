@@ -37,8 +37,6 @@ class LocationSearchInput extends React.Component {
 	render() {
 		return (
 			<div>
-				<input className="btn btn-purple" type="button" value="Save the address" onClick={this.handleAddress} />
-
 				<PlacesAutocomplete
 					value={this.state.address}
 					onChange={this.handleChange}
@@ -50,7 +48,7 @@ class LocationSearchInput extends React.Component {
 							<input
 								{...getInputProps({
 									placeholder: 'Search Places ...',
-									className: 'location-search-input'
+									className: 'signup-input'
 								})}
 							/>
 							<div className="autocomplete-dropdown-container">
@@ -76,6 +74,7 @@ class LocationSearchInput extends React.Component {
 						</div>
 					)}
 				</PlacesAutocomplete>
+				<input className="btn btn-green" type="button" value="SAVE THE ADDRESS" onClick={this.handleAddress} />
 			</div>
 		);
 	}

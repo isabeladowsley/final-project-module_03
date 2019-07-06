@@ -3,29 +3,19 @@ $green: #53827f;
 
 .card {
 	height: auto;
-	width: 250px;
+	width: 300px;
 	margin: 5%;
 	font-size: 14px;
 }
 
 .card-title {
+	margin-top: 5%;
 	color: $purple;
 }
 
 .card-text {
 	margin: 3%;
 	padding-bottom: 5%;
-}
-
-.flex-row-3 {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-}
-
-.flex-row-3-child {
-	width: 25%;
 }
 
 .card-image {

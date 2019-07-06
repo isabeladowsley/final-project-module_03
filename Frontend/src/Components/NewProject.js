@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import MapContainer from './MapContainer';
 import LocationSearchInput from './LocationSearchInput';
 import NavBar from './Navbar';
-import { Button } from 'react-bootstrap';
 import service from '../service';
 
 // import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
@@ -87,7 +86,7 @@ class NewProject extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="maincontainer">
 				<NavBar handleLogout={this.props.handleLogout} />
 				<form onSubmit={(e) => this.handleSubmit(e)}>
 					<div className="form-group">
@@ -108,18 +107,12 @@ class NewProject extends Component {
 							onChange={(e) => this.changeHandler(e)}
 						/>
 						<br />
-
 						<label htmlFor="picture">Add a picture</label>
 						<input type="file" onChange={(e) => this.handleFileUpload(e)} />
-
-						<Button className="btn" variant="info" type="submit">
-							Save the project
-						</Button>
-						<Button className="btn" variant="info" href="/">
-							Go back to your page
-						</Button>
 						<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
-
+						<button className="btn btn-green right-bottom" variant="info" type="submit">
+							SAVE THE PROJECT
+						</button>
 						<MapContainer
 							currentUser={this.state.author}
 							setAddress={this.setAddress}

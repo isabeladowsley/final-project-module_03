@@ -3,14 +3,15 @@ $green: #53827f;
 .card {
 	background-color: $green;
 	color: white;
+	width: 350px;
 }
 
 #profile_img {
-	display: inline;
+	// display: inline;
 	margin-right: 5%;
 	margin-left: 5%;
 	border-radius: 20%;
-	margin-top: -3%;
+	margin-top: -8%;
 }
 
 .Chatbox {

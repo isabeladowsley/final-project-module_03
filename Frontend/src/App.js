@@ -15,11 +15,12 @@ import MyProjects from './Components/MyProjects';
 import MyEvents from './Components/MyEvents';
 import Profile from './Components/Profile';
 import AllProjects from './Components/AllProjects';
+import Project from './Components/Project';
 import AllEvents from './Components/AllEvents';
 import Event from './Components/Event.js';
 import forgotPassword from './Components/forgotPassword';
 import resetPassword from './Components/resetPassword';
-import ChatMessage from './Components/ChatMessage';
+import ChatMessage from './Components/Chat/ChatMessage';
 
 class App extends Component {
 	state = {
@@ -94,8 +95,14 @@ class App extends Component {
 						render={(props) => <MyEvents currentUser={this.state.user} {...props} />}
 					/>
 					<Route
+						exact
 						path="/allprojects"
 						render={(props) => <AllProjects currentUser={this.state.user} {...props} />}
+					/>
+					<Route
+						exact
+						path="/allprojects/:id"
+						render={(props) => <Project currentUser={this.state.user} {...props} />}
 					/>
 					<Route
 						exact
@@ -103,6 +110,7 @@ class App extends Component {
 						render={(props) => <AllEvents currentUser={this.state.user} {...props} />}
 					/>
 					<Route
+						exact
 						path="/allevents/:id"
 						render={(props) => <Event currentUser={this.state.user} {...props} />}
 					/>

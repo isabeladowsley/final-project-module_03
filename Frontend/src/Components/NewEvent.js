@@ -4,10 +4,7 @@ import Swal from 'sweetalert2';
 import MapContainer from './MapContainer';
 import LocationSearchInput from './LocationSearchInput';
 import NavBar from './Navbar';
-import { Button } from 'react-bootstrap';
-
-import TimePicker from 'react-gradient-timepicker';
-// import TimeField from 'react-simple-timefield';
+import service from '../service';
 
 class NewEvent extends Component {
 	constructor(props) {
@@ -19,7 +16,8 @@ class NewEvent extends Component {
 			time: '',
 			geolocation: '',
 			description: '',
-			author: this.props.currentUser
+			author: this.props.currentUser,
+			image_url: ''
 		};
 		this.changeHandler = this.changeHandler.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,7 +43,7 @@ class NewEvent extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { name, date, time, address, geolocation, description, author } = this.state;
+		const { name, date, time, address, geolocation, description, author, image_url } = this.state;
 		axios
 			.post('http://localhost:5000/api/new-event', {
 				name,
@@ -54,7 +52,8 @@ class NewEvent extends Component {
 				address,
 				geolocation,
 				description,
-				author
+				author,
+				image_url
 			})
 			.then(() => {
 				this.setState({
@@ -63,83 +62,86 @@ class NewEvent extends Component {
 					time: '',
 					address: '',
 					geolocation: '',
-					description: ''
+					description: '',
+					image_url: ''
 				});
-
 				Swal.fire('Your event was submitted!');
 				this.props.history.push('/');
 			})
 			.catch((error) => console.log(error));
 	};
 
+	handleFileUpload = (e) => {
+		console.log('The file to be uploaded is: ', e.target.files[0]);
+
+		const uploadData = new FormData();
+		uploadData.append('imageUrl', e.target.files[0]);
+
+		service
+			.handleUpload(uploadData)
+			.then((response) => {
+				console.log('response is: ', response);
+				this.setState({ image_url: response.secure_url });
+			})
+			.catch((err) => {
+				console.log('Error while uploading the file: ', err);
+			});
+	};
+
 	render() {
 		return (
-			<div>
+			<div className="maincontainer">
 				<NavBar handleLogout={this.props.handleLogout} />
-				<form onSubmit={(e) => this.handleSubmit(e)}>
-					<div className="form-group">
-						<label htmlFor="name">Event's name</label>
-						<input
-							type="text"
-							className="form-control"
-							name="name"
-							aria-describedby="name"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="date">Date</label>
-						<input
-							type="date"
-							className="form-control"
-							name="date"
-							aria-describedby="date"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-						<label htmlFor="time">Starting time</label>
-						<input
-							type="time"
-							className="form-control"
-							name="time"
-							aria-describedby="time"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						{/* // <TimePicker
-						// 	name="time"
-						// 	time="01:00"
-						// 	theme="Bourbon"
-						// 	className="timepicker"
-						// 	placeholder="Start Time"
-						// 	onSet={(val) => {
-						// 		alert('val:' + val.format12);
-						// 	}}
-						// /> */}
-
-						<br />
-						<label htmlFor="description">Tell us more about it</label>
-						<textarea
-							className="form-control"
-							name="description"
-							rows="5"
-							onChange={(e) => this.changeHandler(e)}
-						/>
-						<br />
-
-						<Button className="btn" variant="info" type="submit">
-							Save the event
-						</Button>
-						<Button className="btn" variant="info" href="/">
-							Go back to your page
-						</Button>
-						<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
-
-						<MapContainer
-							currentUser={this.state.author}
-							setAddress={this.setAddress}
-							setGeo={this.setGeo}
-						/>
-					</div>
-				</form>
+				<div className="maintext">
+					<form onSubmit={(e) => this.handleSubmit(e)}>
+						<div className="form-group">
+							<label htmlFor="name">Event's name</label>
+							<input
+								type="text"
+								className="form-control"
+								name="name"
+								aria-describedby="name"
+								onChange={(e) => this.changeHandler(e)}
+							/>
+							<br />
+							<label htmlFor="date">Date</label>
+							<input
+								type="date"
+								className="form-control"
+								name="date"
+								aria-describedby="date"
+								onChange={(e) => this.changeHandler(e)}
+							/>
+							<br />
+							<label htmlFor="time">Starting time</label>
+							<input
+								type="time"
+								className="form-control"
+								name="time"
+								aria-describedby="time"
+								onChange={(e) => this.changeHandler(e)}
+							/>
+							<br />
+							<label htmlFor="description">Tell us more about it</label>
+							<textarea
+								className="form-control"
+								name="description"
+								rows="5"
+								onChange={(e) => this.changeHandler(e)}
+							/>
+							<br />
+							<p>ADD A PICTURE </p>
+							<input type="file" onChange={(e) => this.handleFileUpload(e)} />
+							<LocationSearchInput setAddress={this.setAddress} setGeo={this.setGeo} />
+							<input className="btn btn-green" type="submit" value="SAVE THE EVENT" />
+							<MapContainer
+								currentUser={this.state.author}
+								setAddress={this.setAddress}
+								setGeo={this.setGeo}
+							/>
+						</div>
+					</form>
+				</div>
 			</div>
 		);
 	}

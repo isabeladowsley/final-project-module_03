@@ -1,11 +1,17 @@
 $purple: #1c1028;
 $green: #53827f;
+$salmon: #ff6666;
 
 .btn {
 	margin: 20px;
 	font-size: 12px;
-	vertical-align: middle;
-	// font-family: "Josefin Sans", sans-serif;
+	padding-top: 15px;
+	width: 180px;
+	height: 45px;
+	outline: none;
+	cursor: pointer;
+	transition: all .4s;
+	border: none;
 }
 
 .btn:hover {
@@ -15,26 +21,42 @@ $green: #53827f;
 }
 
 .btn-purple {
-	width: 180px;
-	height: 45px;
 	color: white;
 	background-color: $purple;
-	outline: none;
-	cursor: pointer;
-	transition: all .4s;
 }
 
 .btn-green {
-	width: 180px;
-	height: 45px;
 	color: white;
 	background-color: $green;
+}
+
+.btn-green:hover {
+	background-color: $purple;
+}
+
+.btn-salmon {
+	color: white;
+	background-color: $salmon;
+}
+
+.btn-salmon:hover {
+	background-color: $purple;
+}
+
+.btn-card {
+	margin: 20px;
+	font-size: 12px;
+	padding-top: 15px;
+	width: 260px;
+	height: 45px;
 	outline: none;
 	cursor: pointer;
 	transition: all .4s;
 	border: none;
 }
 
-.btn-green:hover {
-	background-color: $purple;
+.btn-card:hover {
+	font-size: 14px;
+	color: white;
+	vertical-align: baseline;
 }

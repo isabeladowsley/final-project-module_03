@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import iconMarker from '../images/collaboration.png';
 
 export class MapContainer extends Component {
 	constructor(props) {
@@ -9,6 +10,7 @@ export class MapContainer extends Component {
 			geolocation: '',
 			user: this.props.currentUser,
 			allprojects: [],
+			allevents: [],
 			showingInfoWindow: false,
 			activeMarker: {},
 			selectedPlace: {},
@@ -53,12 +55,23 @@ export class MapContainer extends Component {
 			.catch(function(error) {
 				console.log(error);
 			});
+		fetch('http://localhost:5000/api/allevents')
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+				this.setState({ allevents: data });
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
 	}
 
 	render() {
 		const style = {
 			width: '80%',
-			height: 'auto',
+			height: 'auto'
 		};
 
 		const lat = this.state.user.geolocation.lat;
@@ -66,26 +79,43 @@ export class MapContainer extends Component {
 
 		return (
 			<div>
-				<Map className='map' google={this.props.google} zoom={14} style={style} initialCenter={{ lat: lat, lng: lng }}>
+				<Map
+					className="map"
+					google={this.props.google}
+					zoom={14}
+					style={style}
+					initialCenter={{ lat: lat, lng: lng }}
+				>
 					<Marker name={'Your place!'} position={this.state.geolocation} onClick={this.onMarkerClick} />
 					<InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
 						<div>
 							<h1 className="infowindow">{this.state.selectedPlace.name}</h1>
-							<a href={this.state.url}>see more</a>
+							<a className="infowindow" href={this.state.url}>
+								see more
+							</a>
 						</div>
 					</InfoWindow>
 					{this.state.allprojects.map((project, index) => (
 						<Marker
+							className="iconMarker"
 							key={index}
 							name={project.name}
 							position={project.geolocation}
 							onClick={this.onMarkerClick}
 							url={`/allprojects/${project._id}`}
-						>
-							{/* <button className="btn btn-purple" href="/allprojects/:{project._id}">
-								Link
-							</button> */}
-						</Marker>
+							// icon={iconMarker}
+						/>
+					))}
+					{this.state.allevents.map((event, index) => (
+						<Marker
+							className="iconMarker"
+							key={index}
+							name={event.name}
+							position={event.geolocation}
+							onClick={this.onMarkerClick}
+							url={`/allevents/${event._id}`}
+							// icon={iconMarker}
+						/>
 					))}
 				</Map>
 			</div>
