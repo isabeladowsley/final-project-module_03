@@ -52,10 +52,7 @@ class Signup extends Component {
 				this.props.history.push('/login');
 			})
 			.catch((error) => {
-				this.setState({
-					error: error.response.data.message
-				});
-				console.log('error caught', error.response.data);
+				console.log('error caught', error);
 			});
 	};
 
