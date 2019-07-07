@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import NavBar from './Navbar.js';
 
-import default_img from '../images/default_project.jpg';
+import axios from 'axios';
 
 class AllProjects extends Component {
 	constructor(props) {
@@ -13,7 +13,8 @@ class AllProjects extends Component {
 	}
 
 	componentDidMount() {
-		fetch(`${process.env.REACT_APP_API_URL}/allprojects`)
+		axios
+			.get(`${process.env.REACT_APP_API_URL}/allprojects`)
 			.then((response) => {
 				return response.json();
 			})
