@@ -94,13 +94,13 @@ app.use('/', index);
 
 app.use('/', require('./routes/auth-routes.js'));
 
-app.use('/api', require('./routes/file-upload-routes.js'));
+app.use('/', require('./routes/file-upload-routes.js'));
 
-app.use('/api', require('./routes/project-routes.js'));
+app.use('/', require('./routes/project-routes.js'));
 
-app.use('/api', require('./routes/event-routes.js'));
+app.use('/', require('./routes/event-routes.js'));
 
-app.use('/api', require('./routes/user-routes.js'));
+app.use('/', require('./routes/user-routes.js'));
 
 app.use((req, res, next) => {
 	// If no routes match, send them the React HTML.
