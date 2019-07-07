@@ -59,14 +59,14 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 // Allow Cross-Origin Resource Sharing (CORS)
 // (allows access to the API from the frontend JS on a different domain/origin)
-app.use(
-	cors({
-		// allow other domains/origins to send cookies
-		credentials: true,
-		// the array of domains/origins we want cookies from (just the React app)
-		origin: [ 'http://localhost:3000' ]
-	})
-);
+// app.use(
+// 	cors({
+// 		// allow other domains/origins to send cookies
+// 		credentials: true,
+// 		// the array of domains/origins we want cookies from (just the React app)
+// 		origin: [ 'http://localhost:3000' ]
+// 	})
+// );
 
 // handle session here:
 // app.js
