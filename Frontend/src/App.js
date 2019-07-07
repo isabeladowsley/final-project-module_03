@@ -105,6 +105,7 @@ class App extends Component {
 						render={(props) => <Project currentUser={this.state.user} {...props} />}
 					/>
 					<Route
+						exact
 						path="/allevents"
 						render={(props) => <AllEvents currentUser={this.state.user} {...props} />}
 					/>

@@ -22,6 +22,7 @@ class AllEvents extends Component {
 		axios
 			.get(`${process.env.REACT_APP_API_URL}/allevents`)
 			.then((response) => {
+				console.log('Hey', response);
 				return response.json();
 			})
 			.then((data) => {
