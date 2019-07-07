@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import MapContainer from './MapContainer';
 import LocationSearchInput from './LocationSearchInput';
 import NavBar from './Navbar';
-import service from '../service';
+import service from '../javascripts/service';
 
 class NewEvent extends Component {
 	constructor(props) {

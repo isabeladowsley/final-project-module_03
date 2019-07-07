@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './Navbar.js';
 import AuthService from './auth/AuthService';
-import service from '../service';
+import service from '../javascripts/service';
 import axios from 'axios';
 
 class Profile extends Component {

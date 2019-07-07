@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AuthService from './auth/AuthService';
-import service from '../service';
+import service from '../javascripts/service';
 import LocationSearchInput from './LocationSearchInput';
 
 class Signup extends Component {

@@ -4,9 +4,7 @@ import Swal from 'sweetalert2';
 import MapContainer from './MapContainer';
 import LocationSearchInput from './LocationSearchInput';
 import NavBar from './Navbar';
-import service from '../service';
-
-// import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import service from '../javascripts/service';
 
 class NewProject extends Component {
 	constructor(props) {
