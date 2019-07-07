@@ -5,19 +5,18 @@ const router = express.Router();
 const Event = require('../models/event');
 const User = require('../models/user-model');
 
-router.get('/new-event', (req, res, next) => {
-	Event.findById(req.params.eventId)
-		.then((theEvent) => {
-			res.json(theEvent);
-			console.log('The event is ', theEvent);
-		})
-		.catch((err) => {
-			res.json(err);
-		});
-});
+// router.get('/new-event', (req, res, next) => {
+// 	Event.findById(req.params.eventId)
+// 		.then((theEvent) => {
+// 			res.json(theEvent);
+// 			console.log('The event is ', theEvent);
+// 		})
+// 		.catch((err) => {
+// 			res.json(err);
+// 		});
+// });
 
 router.post('/new-event', (req, res, next) => {
-	console.log('/new-event called');
 	Event.create({
 		name: req.body.name,
 		date: req.body.date,
