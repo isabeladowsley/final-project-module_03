@@ -2,9 +2,12 @@
 	"name": "citycircle",
 	"version": "0.1.0",
 	"scripts": {
-		"postinstall": "npm install --prefix Backend && npm install --prefix Frontend && npm run build --prefix Frontend"
+		"postinstall": "npm install --prefix Backend"
 	},
 	"engines": {
 		"node": "10.3.0"
+	},
+	"dependencies": {
+		"dotenv": "^8.0.0"
 	}
 }
