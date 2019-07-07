@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import NavBar from './Navbar.js';
+import axios from 'axios';
 
 var moment = require('moment');
 
@@ -18,7 +19,8 @@ class AllEvents extends Component {
 	};
 
 	componentDidMount() {
-		fetch(`${process.env.REACT_APP_API_URL}/allevents`)
+		axios
+			.get(`${process.env.REACT_APP_API_URL}/allevents`)
 			.then((response) => {
 				return response.json();
 			})
