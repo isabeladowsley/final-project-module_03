@@ -5,17 +5,6 @@ const router = express.Router();
 const Event = require('../models/event');
 const User = require('../models/user-model');
 
-// router.get('/new-event', (req, res, next) => {
-// 	Event.findById(req.params.eventId)
-// 		.then((theEvent) => {
-// 			res.json(theEvent);
-// 			console.log('The event is ', theEvent);
-// 		})
-// 		.catch((err) => {
-// 			res.json(err);
-// 		});
-// });
-
 router.post('/new-event', (req, res, next) => {
 	Event.create({
 		name: req.body.name,
@@ -53,7 +42,7 @@ router.get('/allevents', (req, res, next) => {
 	Event.find()
 		.populate('author')
 		.then((allEventsFromDB) => {
-			let json = JSON.stringify(allEventsFromDB);
+			// let json = JSON.stringify(allEventsFromDB);
 			res.send(allEventsFromDB);
 		})
 		.catch((error) => {

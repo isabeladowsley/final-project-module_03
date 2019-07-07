@@ -5,17 +5,17 @@ const router = express.Router();
 const Project = require('../models/project');
 const User = require('../models/user-model');
 
-router.get('/new-project', (req, res, next) => {
-	Project.findById(req.params.projectId)
-		.then((theProject) => {
-			res.json(theProject);
+// router.get('/new-project', (req, res, next) => {
+// 	Project.findById(req.params.projectId)
+// 		.then((theProject) => {
+// 			res.json(theProject);
 
-			console.log('The project is ', theProject);
-		})
-		.catch((err) => {
-			res.json(err);
-		});
-});
+// 			console.log('The project is ', theProject);
+// 		})
+// 		.catch((err) => {
+// 			res.json(err);
+// 		});
+// });
 
 router.post('/new-project', (req, res, next) => {
 	Project.create({
