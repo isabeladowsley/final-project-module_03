@@ -44,5 +44,5 @@
 		"@fortawesome/fontawesome-free": "^5.9.0"
 	},
 
-	"proxy": "http://locahost:5000"
+	"proxy": "http://locahost:5000/"
 }
