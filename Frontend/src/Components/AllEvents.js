@@ -69,10 +69,10 @@ class AllEvents extends Component {
 							<br />
 							<p className="card-text">Time: {event.time}</p>
 							<br />
-							{/* <p className="card-text">Comments: </p>
+							<p className="card-text">Comments: </p>
 
 							{event.comments.map((comment, index) => <p key={index}>{comment}</p>)}
-							<br /> */}
+							<br />
 							<p className="card-text">
 								{' '}
 								<i class="fas fa-users" /> &nbsp;

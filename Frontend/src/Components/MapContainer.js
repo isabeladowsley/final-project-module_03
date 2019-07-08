@@ -44,7 +44,7 @@ export class MapContainer extends Component {
 	};
 
 	componentDidMount() {
-		fetch(`${process.env.REACT_APP_API_URL}/allprojects`)
+		fetch(`${process.env.REACT_APP_API_URL}/getprojects`)
 			.then((response) => {
 				return response.json();
 			})
@@ -55,7 +55,7 @@ export class MapContainer extends Component {
 			.catch(function(error) {
 				console.log(error);
 			});
-		fetch(`${process.env.REACT_APP_API_URL}/allevents`)
+		fetch(`${process.env.REACT_APP_API_URL}/getevents`)
 			.then((response) => {
 				return response.json();
 			})
