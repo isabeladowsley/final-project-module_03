@@ -38,7 +38,7 @@ router.post('/new-event', (req, res, next) => {
 		});
 });
 
-router.get('/allevents', (req, res, next) => {
+router.get('/getevents', (req, res, next) => {
 	Event.find()
 		.populate('author')
 		.then((allEventsFromDB) => {
@@ -55,7 +55,7 @@ router.get('/allevents/:id', (req, res, next) => {
 		.populate('author')
 		.then((event) => {
 			console.log(event);
-			res.json(event);
+			res.status(200).json(event);
 		})
 		.catch((err) => {
 			res.json(err);
