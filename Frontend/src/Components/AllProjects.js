@@ -13,13 +13,16 @@ class AllProjects extends Component {
 	}
 
 	componentDidMount() {
-		fetch(`${process.env.REACT_APP_API_URL}/allprojects`, { credentials: 'include' })
+		fetch(`${process.env.REACT_APP_API_URL}/getprojects`, { credentials: 'include' })
 			.then((response) => {
-				return response.json();
-			})
-			.then((data) => {
-				console.log(data);
-				this.setState({ allprojects: data });
+				console.log(response);
+				if (!response.ok) {
+					this.setState({ allprojects: null });
+					throw new Error({ message: 'problem fetching data from db' });
+				}
+				response.json().then((projects) => {
+					this.setState({ allprojects: projects });
+				});
 			})
 			.catch(function(error) {
 				console.log(error);

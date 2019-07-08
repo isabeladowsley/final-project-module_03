@@ -26,7 +26,7 @@ class Project extends Component {
 	componentDidMount() {
 		const { params } = this.props.match;
 		axios
-			.get(`${process.env.REACT_APP_API_URL}/allprojects/${params.id}`)
+			.get(`${process.env.REACT_APP_API_URL}/getprojects/${params.id}`)
 			.then((responseFromApi) => {
 				const theProject = responseFromApi.data;
 				this.setState({ project: theProject, author: theProject.author.name });

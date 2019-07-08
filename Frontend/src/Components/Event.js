@@ -47,7 +47,7 @@ class Event extends Component {
 	getSingleEvent = () => {
 		const { params } = this.props.match;
 		axios
-			.get(`${process.env.REACT_APP_API_URL}/allevents/${params.id}`)
+			.get(`${process.env.REACT_APP_API_URL}/getevents/${params.id}`)
 			.then((responseFromApi) => {
 				const theEvent = responseFromApi.data;
 				this.setState({ event: theEvent, author: theEvent.author.name, atendees: theEvent.atendees });
@@ -60,7 +60,12 @@ class Event extends Component {
 	handleFormSubmit = (e) => {
 		e.preventDefault();
 		const { event, isGoing, comment, user } = this.state;
-		axios.put(`${process.env.REACT_APP_API_URL}/allevents/${this.state.event._id}`, { event, isGoing, comment, user });
+		axios.put(`${process.env.REACT_APP_API_URL}/allevents/${this.state.event._id}`, {
+			event,
+			isGoing,
+			comment,
+			user
+		});
 
 		Swal.fire('Thanks for your info');
 		this.props.history.push('/allevents');

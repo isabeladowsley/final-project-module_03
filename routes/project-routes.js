@@ -35,19 +35,18 @@ router.post('/new-project', (req, res, next) => {
 		});
 });
 
-router.get('/allprojects', (req, res, next) => {
+router.get('/getprojects', (req, res, next) => {
 	Project.find()
 		.populate('author')
 		.then((allProjectsFromDB) => {
-			let json = JSON.stringify(allProjectsFromDB);
-			res.send(allProjectsFromDB);
+			res.status(200).json(allProjectsFromDB);
 		})
 		.catch((error) => {
 			console.log('Error while getting the projects from the DB: ', error);
 		});
 });
 
-router.get('/allprojects/:id', (req, res, next) => {
+router.get('/getprojects/:id', (req, res, next) => {
 	Project.findById(req.params.id)
 		.populate('author')
 		.then((project) => {

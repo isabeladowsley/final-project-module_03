@@ -20,16 +20,6 @@ class AllEvents extends Component {
 
 	componentDidMount() {
 		fetch(`${process.env.REACT_APP_API_URL}/getevents`, { credentials: 'include' })
-			// .get(`${process.env.REACT_APP_API_URL}/allevents`)
-			// .then((response) => {
-			// 	console.log('Hey', response);
-			// 	return response.json();
-			// })
-			// .then((response) => {
-			// 	console.log('Hey', response);
-			// 	this.setState({ allevents: response });
-			// })
-
 			.then((response) => {
 				console.log(response);
 				if (!response.ok) {

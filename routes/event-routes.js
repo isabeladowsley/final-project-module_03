@@ -42,7 +42,6 @@ router.get('/getevents', (req, res, next) => {
 	Event.find()
 		.populate('author')
 		.then((allEventsFromDB) => {
-			// let json = JSON.stringify(allEventsFromDB);
 			res.json(allEventsFromDB);
 		})
 		.catch((error) => {
@@ -50,7 +49,7 @@ router.get('/getevents', (req, res, next) => {
 		});
 });
 
-router.get('/allevents/:id', (req, res, next) => {
+router.get('/getevents/:id', (req, res, next) => {
 	Event.findById(req.params.id)
 		.populate('author')
 		.then((event) => {
