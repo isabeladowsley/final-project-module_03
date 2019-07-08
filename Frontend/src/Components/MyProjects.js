@@ -14,6 +14,10 @@ class MyProjects extends Component {
 		// window.location.reload();
 	};
 
+	redirect = (id) => {
+		this.props.history.push(`/allprojects/${id}`);
+	};
+
 	render() {
 		return (
 			<div className="maincontainer">

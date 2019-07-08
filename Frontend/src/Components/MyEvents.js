@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Card } from 'react-bootstrap';
 import NavBar from './Navbar.js';
 
 var moment = require('moment');
@@ -19,6 +18,10 @@ class MyEvents extends Component {
 		var formattedDate = moment(date).format('DD MMMM YYYY');
 		return formattedDate;
 	}
+
+	redirect = (id) => {
+		this.props.history.push(`/allevents/${id}`);
+	};
 
 	render() {
 		return (

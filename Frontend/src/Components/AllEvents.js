@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
 import NavBar from './Navbar.js';
-import axios from 'axios';
 
 var moment = require('moment');
 
