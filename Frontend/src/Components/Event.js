@@ -9,7 +9,7 @@ class Event extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			event: '',
+			event: {},
 			isGoing: true,
 			comment: '',
 			user: this.props.currentUser,

@@ -7,7 +7,7 @@ class Project extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			project: '',
+			project: {},
 			comment: '',
 			user: this.props.currentUser,
 			author: ''
@@ -71,8 +71,8 @@ class Project extends Component {
 						Description: <span className="text-white">{this.state.project.description}</span>
 					</h3>
 					<br />
-					<p className="card-text">Comments: </p>
-					{this.state.project.comments.map((comment, index) => <p key={index}>{comment}</p>)}
+					{/* <p className="card-text">Comments: </p>
+					{this.state.project.comments.map((comment, index) => <p key={index}>{comment}</p>)} */}
 					<h3 className="text-green">Leave a comment </h3>
 					<textarea className="form-control" name="comment" rows="5" onChange={this.changeHandler} />
 					<input className="btn btn-green" type="submit" value="SUBMIT YOUR CHANGES" />
