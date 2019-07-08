@@ -104,6 +104,7 @@ class Event extends Component {
 						Description: <span className="text-white">{this.state.event.description}</span>
 					</h3>
 					<br />
+					<h3 className="text-green">Comments: </h3>
 					{this.state.event.comments.map((comment, index) => <p key={index}>{comment}</p>)}
 					<p>
 						{' '}

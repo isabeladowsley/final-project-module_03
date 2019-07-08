@@ -10,6 +10,7 @@ class AllProjects extends Component {
 		this.state = {
 			allprojects: []
 		};
+		this.redirect = this.redirect.bind(this);
 	}
 
 	componentDidMount() {

@@ -10,6 +10,7 @@ class AllEvents extends Component {
 			allevents: [],
 			user: this.props.currentUser
 		};
+		this.redirect = this.redirect.bind(this);
 	}
 
 	redirect = (id) => {
