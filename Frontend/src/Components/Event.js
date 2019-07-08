@@ -80,6 +80,7 @@ class Event extends Component {
 			<div className="maincontainer">
 				<NavBar handleLogout={this.props.handleLogout} />
 				<form onSubmit={this.handleFormSubmit}>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{' '}
 					<img className="card-image" src={this.state.event.image_url} alt="" height="200px" />
 					<br />
 					<h2 className="text-purple">{this.state.event.name} </h2>
@@ -105,7 +106,6 @@ class Event extends Component {
 					</h3>
 					<br />
 					{/* {this.state.event.comments.map((comment, index) => <p key={index}>{comment}</p>)} */}
-
 					<p>
 						<i class="fas fa-users" /> &nbsp; {countAtendees} persons have already confirmed!
 					</p>
