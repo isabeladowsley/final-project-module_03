@@ -95,6 +95,7 @@ class App extends Component {
 						render={(props) => <MyEvents currentUser={this.state.user} {...props} />}
 					/>
 					<Route
+						exact
 						path="/allprojects"
 						render={(props) => <AllProjects currentUser={this.state.user} {...props} />}
 					/>
@@ -104,6 +105,7 @@ class App extends Component {
 						render={(props) => <Project currentUser={this.state.user} {...props} />}
 					/>
 					<Route
+						exact
 						path="/allevents"
 						render={(props) => <AllEvents currentUser={this.state.user} {...props} />}
 					/>
