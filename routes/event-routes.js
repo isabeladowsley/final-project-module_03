@@ -43,7 +43,7 @@ router.get('/allevents', (req, res, next) => {
 		.populate('author')
 		.then((allEventsFromDB) => {
 			// let json = JSON.stringify(allEventsFromDB);
-			res.send(allEventsFromDB);
+			res.json(allEventsFromDB);
 		})
 		.catch((error) => {
 			console.log('Error while getting the events from the DB: ', error);

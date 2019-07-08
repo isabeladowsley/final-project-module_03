@@ -19,15 +19,15 @@ class AllEvents extends Component {
 	};
 
 	componentDidMount() {
-		fetch('https://citycircle.herokuapp.com/allevents', { credentials: 'include' })
+		fetch(`${process.env.REACT_APP_API_URL}/allevents`, { credentials: 'include' })
 			// .get(`${process.env.REACT_APP_API_URL}/allevents`)
+			// .then((response) => {
+			// 	console.log('Hey', response);
+			// 	return response.json();
+			// })
 			.then((response) => {
 				console.log('Hey', response);
-				return response.json();
-			})
-			.then((data) => {
-				console.log(data);
-				this.setState({ allevents: data });
+				this.setState({ allevents: response });
 			})
 			.catch(function(error) {
 				console.log(error);
