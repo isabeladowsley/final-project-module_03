@@ -28,6 +28,11 @@ class MyProjects extends Component {
 							<p className="card-text">Address: {project.address}</p>
 							<br />
 							<p className="card-text">Description: {project.description}</p>
+							<p className="card-text">Comments: </p>
+							{project.comments.map((comment, index) => <p key={index}>{comment}</p>)}
+							<button className="btn-purple btn-card" onClick={() => this.redirect(project._id)}>
+								SEE MORE
+							</button>
 							<button className="btn-card btn-purple" onClick={() => this.delete(project._id)}>
 								DELETE THE PROJECT
 							</button>

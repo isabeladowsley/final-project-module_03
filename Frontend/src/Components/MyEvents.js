@@ -32,6 +32,10 @@ class MyEvents extends Component {
 							<p className="card-text">Date: {this.formattedDate(event.date)}</p>
 							<p className="card-text">Adrress: {event.address}</p>
 							<p className="card-text">Description: {event.description}</p>
+							{event.comments.map((comment, index) => <p key={index}>{comment}</p>)}
+							<button className="btn-purple btn-card" onClick={() => this.redirect(event._id)}>
+								SEE MORE
+							</button>
 							<button className="btn-card btn-purple" onClick={() => this.delete(event._id)}>
 								DELETE THE EVENT
 							</button>
