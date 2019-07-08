@@ -51,11 +51,27 @@ router.get('/getprojects/:id', (req, res, next) => {
 		.populate('author')
 		.then((project) => {
 			console.log('Hey', req.params.id);
-			res.json(project);
+			res.status(200).json(project);
 		})
 		.catch((err) => {
 			res.json(err);
 		});
+});
+
+router.put('/allprojects/:id', (req, res, next) => {
+	if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+		res.status(400).json({ message: 'Specified id is not valid' });
+		return;
+	}
+
+	Project.findByIdAndUpdate(
+		req.params.id,
+		{ $push: { comments: req.body.comment } },
+		{ safe: true, upsert: true, new: true },
+		function(err, model) {
+			console.log(err);
+		}
+	);
 });
 
 router.delete('/allprojects/:id', (req, res, next) => {
