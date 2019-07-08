@@ -13,8 +13,7 @@ class AllProjects extends Component {
 	}
 
 	componentDidMount() {
-		axios
-			.get(`${process.env.REACT_APP_API_URL}/allprojects`)
+		fetch(`${process.env.REACT_APP_API_URL}/allprojects`, { credentials: 'include' })
 			.then((response) => {
 				return response.json();
 			})
