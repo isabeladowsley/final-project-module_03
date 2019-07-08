@@ -19,8 +19,8 @@ class AllEvents extends Component {
 	};
 
 	componentDidMount() {
-		axios
-			.get(`${process.env.REACT_APP_API_URL}/allevents`)
+		fetch(`${process.env.REACT_APP_API_URL}/allevents`)
+			// .get(`${process.env.REACT_APP_API_URL}/allevents`)
 			.then((response) => {
 				console.log('Hey', response);
 				return response.json();
