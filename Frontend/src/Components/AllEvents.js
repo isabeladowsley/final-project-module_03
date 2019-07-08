@@ -25,9 +25,20 @@ class AllEvents extends Component {
 			// 	console.log('Hey', response);
 			// 	return response.json();
 			// })
+			// .then((response) => {
+			// 	console.log('Hey', response);
+			// 	this.setState({ allevents: response });
+			// })
+
 			.then((response) => {
-				console.log('Hey', response);
-				this.setState({ allevents: response });
+				console.log(response);
+				if (!response.ok) {
+					this.setState({ allevents: null });
+					throw new Error({ message: 'problem fetching data from db' });
+				}
+				response.json().then((events) => {
+					this.setState({ allevents: events });
+				});
 			})
 			.catch(function(error) {
 				console.log(error);
