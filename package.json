@@ -31,7 +31,7 @@
 		"prop-types": "^15.7.2",
 		"react-geocode": "^0.1.2",
 		"react-gradient-timepicker": "0.0.3",
-		"sequelize": "^5.9.0",
+		"sequelize": "^5.15.1",
 		"serve-favicon": "^2.5.0"
 	},
 	"devDependencies": {
